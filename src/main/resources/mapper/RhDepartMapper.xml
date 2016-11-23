@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmmxjy.system.dao.RhDepartMapper" >
+  <resultMap id="BaseResultMap" type="com.xmmxjy.system.entity.RhDepart" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="depart_name" property="departName" jdbcType="VARCHAR" />
+    <result column="parent_depart_id" property="parentDepartId" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_type" property="orgType" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

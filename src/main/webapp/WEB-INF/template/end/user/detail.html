@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">详情</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						<fieldset disabled>
+																		<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">用户名</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.username}" name="username" id="username" class="form-control" />
+												</div>
+											</div>
+											<!--<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">盐值</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.salt}" name="salt" id="salt" class="form-control" />
+												</div>
+											</div>-->
+											<!--<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">密码</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.password}" name="password" id="password" class="form-control" />
+												</div>
+											</div>-->
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">真实姓名</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.realName}" name="realName" id="realName" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">用户状态</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.status}" name="status" id="status" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">邮箱</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.email}" name="email" id="email" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">生日</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.birthday})" name="birthday" id="birthday" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">性别</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.sex}" name="sex" id="sex" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">手机号码</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.mobilePhone}" name="mobilePhone" id="mobilePhone" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">办公室电话</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.officePhone}" name="officePhone" id="officePhone" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">所属区域</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.region}" name="region" id="region" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">上次登录时间</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.lastLoginTime}" name="lastLoginTime" id="lastLoginTime" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">上次登录IP</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.lastLoginIp}" name="lastLoginIp" id="lastLoginIp" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">角色ID</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.roleId}" name="roleId" id="roleId" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">部门ID</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.departId}" name="departId" id="departId" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.updateName}" name="updateName" id="updateName" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.updateDate})" name="updateDate" id="updateDate" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.updateBy}" name="updateBy" id="updateBy" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.createName}" name="createName" id="createName" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.createDate})" name="createDate" id="createDate" class="form-control" />
+												</div>
+											</div>
+											<div class="form-group mno">
+												<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
+												<div class="col-sm-2">
+													<input type="text" value="$!{bptUser.createBy}" name="createBy" id="createBy" class="form-control" />
+												</div>
+											</div>
+						</fieldset>
+						<div class="form-group mno">
+							<div class="col-sm-offset-1 col-sm-6">
+								<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/system/bptUser.do?list')">返回</button>
+							 </div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

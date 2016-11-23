@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmmxjy.system.dao.RhFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.xmmxjy.system.entity.RhFunction" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="functionlevel" property="functionlevel" jdbcType="SMALLINT" />
+    <result column="functionname" property="functionname" jdbcType="VARCHAR" />
+    <result column="functionorder" property="functionorder" jdbcType="VARCHAR" />
+    <result column="functionurl" property="functionurl" jdbcType="VARCHAR" />
+    <result column="parent_function_id" property="parentFunctionId" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="function_type" property="functionType" jdbcType="SMALLINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
