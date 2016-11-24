@@ -1,5 +1,6 @@
 package com.xmmxjy.common.util;
 
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -25,5 +26,20 @@ public class EndUtil {
         String basePath = request.getContextPath();
         logger.info("basePath : {}",basePath);
         model.addAttribute("basePath",basePath);
+    }
+
+    /**
+     * 发送分页参数
+     * @param request
+     * @param model
+     * @param page
+     */
+    public static void sendPageParams(HttpServletRequest request, ModelMap model, PageInfo page) {
+        logger.info("page : {}",page);
+        model.addAttribute("total",page.getTotal());
+        model.addAttribute("list",page.getList());
+        model.addAttribute("pageNo",page.getPageNum());
+        model.addAttribute("pageSize",page.getPageSize());
+        model.addAttribute("pages",page.getPages());
     }
 }

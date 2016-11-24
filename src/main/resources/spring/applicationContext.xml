@@ -78,5 +78,5 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <import resource="classpath:mybatis/spring-mybatis.xml"/>
-   <!--  <import resource="classpath:shiro/spring-shiro.xml"/> -->
+    <import resource="classpath:shiro/spring-shiro.xml"/>
 </beans>

@@ -1,215 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
-#parse("content/base/back/common/head.vm")
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="end/include/head">
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
-			<form role="form" class="form-inline" action="$!{basePath}/system/bptUser.do?list" method="post"  id="formSubmit">
+			<form role="form" class="form-inline" action="user/list.html" th:action="@{/user?list}" method="post"  id="formSubmit">
 				<div  class="col-md-10" style="width:100%">
 					<div class="panel panel-default">
 						<div class="panel-heading">列表</div>
 						<div class="panel-body">
+							<input name="pageNo" id="pageNo" value="1" th:value="${pageNo}" type="hidden">
+							<input name="pageSize" id="pageSize" value="10" th:value="${pageSize}" type="hidden">
 							<div class="search">
 										 <div class="form-group col-sm-3">
 											<label for="username" class="control-label col-sm-3 line34">用户名</label>
 											<div class="col-sm-8">
-												<input type="text" name="username" id="username" value="$!{bptUser.username}" class="form-control">
+												<input type="text" name="username" id="username" value="username"  th:value="${query.username}" class="form-control">
 											</div>
 										 </div>
-										 <!--<div class="form-group col-sm-3">
-											<label for="salt" class="control-label col-sm-3 line34">盐值</label>
-											<div class="col-sm-8">
-												<input type="text" name="salt" id="salt" value="$!{bptUser.salt}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="password" class="control-label col-sm-3 line34">密码</label>
-											<div class="col-sm-8">
-												<input type="text" name="password" id="password" value="$!{bptUser.password}" class="form-control">
-											</div>
-										 </div>-->
+
 										 <div class="form-group col-sm-3">
 											<label for="realName" class="control-label col-sm-3 line34">真实姓名</label>
 											<div class="col-sm-8">
-												<input type="text" name="realName" id="realName" value="$!{bptUser.realName}" class="form-control">
+												<input type="text" name="realName" id="realName" value="realName"  th:value="${query.realName}" class="form-control">
 											</div>
 										 </div>
-										 <!--<div class="form-group col-sm-3">
-											<label for="status" class="control-label col-sm-3 line34">用户状态</label>
-											<div class="col-sm-8">
-												<input type="text" name="status" id="status" value="$!{bptUser.status}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="email" class="control-label col-sm-3 line34">邮箱</label>
-											<div class="col-sm-8">
-												<input type="text" name="email" id="email" value="$!{bptUser.email}" class="form-control">
-											</div>
-										 </div>
-										<div class="form-group col-sm-3">
-											<label for="birthday" class="control-label col-sm-3 line34">生日</label>
-											<div class="col-sm-8">
-												<input type="text" name="birthday" id="birthday" value="$!dateTool.format('yyyy-MM-dd',$!{bptUser.birthday})" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="sex" class="control-label col-sm-3 line34">性别</label>
-											<div class="col-sm-8">
-												<input type="text" name="sex" id="sex" value="$!{bptUser.sex}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="mobilePhone" class="control-label col-sm-3 line34">手机号码</label>
-											<div class="col-sm-8">
-												<input type="text" name="mobilePhone" id="mobilePhone" value="$!{bptUser.mobilePhone}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="officePhone" class="control-label col-sm-3 line34">办公室电话</label>
-											<div class="col-sm-8">
-												<input type="text" name="officePhone" id="officePhone" value="$!{bptUser.officePhone}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="region" class="control-label col-sm-3 line34">所属区域</label>
-											<div class="col-sm-8">
-												<input type="text" name="region" id="region" value="$!{bptUser.region}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="lastLoginTime" class="control-label col-sm-3 line34">上次登录时间</label>
-											<div class="col-sm-8">
-												<input type="text" name="lastLoginTime" id="lastLoginTime" value="$!{bptUser.lastLoginTime}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="lastLoginIp" class="control-label col-sm-3 line34">上次登录IP</label>
-											<div class="col-sm-8">
-												<input type="text" name="lastLoginIp" id="lastLoginIp" value="$!{bptUser.lastLoginIp}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="roleId" class="control-label col-sm-3 line34">角色ID</label>
-											<div class="col-sm-8">
-												<input type="text" name="roleId" id="roleId" value="$!{bptUser.roleId}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="departId" class="control-label col-sm-3 line34">部门ID</label>
-											<div class="col-sm-8">
-												<input type="text" name="departId" id="departId" value="$!{bptUser.departId}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="updateName" class="control-label col-sm-3 line34">修改人</label>
-											<div class="col-sm-8">
-												<input type="text" name="updateName" id="updateName" value="$!{bptUser.updateName}" class="form-control">
-											</div>
-										 </div>
-										<div class="form-group col-sm-3">
-											<label for="updateDate" class="control-label col-sm-3 line34">修改时间</label>
-											<div class="col-sm-8">
-												<input type="text" name="updateDate" id="updateDate" value="$!dateTool.format('yyyy-MM-dd',$!{bptUser.updateDate})" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="updateBy" class="control-label col-sm-3 line34">修改人id</label>
-											<div class="col-sm-8">
-												<input type="text" name="updateBy" id="updateBy" value="$!{bptUser.updateBy}" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="createName" class="control-label col-sm-3 line34">创建人</label>
-											<div class="col-sm-8">
-												<input type="text" name="createName" id="createName" value="$!{bptUser.createName}" class="form-control">
-											</div>
-										 </div>
-										<div class="form-group col-sm-3">
-											<label for="createDate" class="control-label col-sm-3 line34">创建时间</label>
-											<div class="col-sm-8">
-												<input type="text" name="createDate" id="createDate" value="$!dateTool.format('yyyy-MM-dd',$!{bptUser.createDate})" class="form-control">
-											</div>
-										 </div>
-										 <div class="form-group col-sm-3">
-											<label for="createBy" class="control-label col-sm-3 line34">创建人id</label>
-											<div class="col-sm-8">
-												<input type="text" name="createBy" id="createBy" value="$!{bptUser.createBy}" class="form-control">
-											</div>
-										 </div>-->
 								<button type="submit" class="btn btn-primary">搜  索</button>
 								<div class="clearfix"></div>
 							</div>
-							#if ($shiro.hasRole("system.user.add"))
+
 							<div id="legend">
 								<legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/system/bptUser.do?toAdd')" >新增</button></legend> 
 							</div>
-							#end
 							<table class="table table-striped">
 								<thead>
 											<th>用户名</th>
-											<!--<th>盐值</th>-->
-											<!--<th>密码</th>-->
 											<th>真实姓名</th>
 											<th>用户状态</th>
-											<!--<th>邮箱</th>
-											<th>生日</th>
-											<th>性别</th>-->
 											<th>手机号码</th>
-											<!--<th>办公室电话</th>
-											<th>所属区域</th>-->
 											<th>上次登录时间</th>
 											<th>上次登录IP</th>
-											<!--<th>角色ID</th>
-											<th>部门ID</th>
-											<th>修改人</th>
-											<th>修改时间</th>
-											<th>修改人id</th>
-											<th>创建人</th>
-											<th>创建时间</th>
-											<th>创建人id</th>-->
-									<th>操作</th>
+										    <th>操作</th>
 								</thead>
 								<tbody>
-								#if($!{pageInfos})
-									#foreach($!{info} in $!{pageInfos})
-										<tr>			
-														<td>$!{info.username}</td>
-														<!--<td>$!{info.salt}</td>-->
-														<!--<td>$!{info.password}</td>-->
-														<td>$!{info.realName}</td>
-														<td>$!{info.status}</td>
-														<!--<td>$!{info.email}</td>
-														<td>$!dateTool.format("yyyy-MM-dd",$!{info.birthday})</td>
-														<td>$!{info.sex}</td>-->
-														<td>$!{info.mobilePhone}</td>
-														<!--<td>$!{info.officePhone}</td>-->
-														<!--<td>$!{info.region}</td>-->
-														<td>$!{info.lastLoginTime}</td>
-														<td>$!{info.lastLoginIp}</td>
-														<!--<td>$!{info.roleId}</td>
-														<td>$!{info.departId}</td>
-														<td>$!{info.updateName}</td>
-														<td>$!dateTool.format("yyyy-MM-dd",$!{info.updateDate})</td>
-														<td>$!{info.updateBy}</td>
-														<td>$!{info.createName}</td>
-														<td>$!dateTool.format("yyyy-MM-dd",$!{info.createDate})</td>
-														<td>$!{info.createBy}</td>-->
-											<td class="last">
-										#if ($shiro.hasRole("system.user.update"))<a href="javascript:doUrl('$!{basePath}/system/bptUser.do?toEdit&id=$!{info.id}')" >编辑</a> #end
-										#if ($shiro.hasRole("system.user.delete"))	<a href="javascript:delData('$!{basePath}/system/bptUser.do?doDelete&id=$!{info.id}')">删除</a> #end
-										#if	($shiro.hasRole("system.user.detail")) <a href="javascript:doUrl('$!{basePath}/system/bptUser.do?toDetail&id=$!{info.id}')">详情</a> #end
-											</td>
+								<tr th:each ="info :${list}">
+									<td th:text="${info.username}">username</td>
+									<td th:text="${info.realName}">realName</td>
+									<td th:text="${info.status}">status</td>
+									<td th:text="${info.mobilePhone}">mobilePhone</td>
+									<td th:text="${info.lastLoginTime}">lastLoginTime</td>
+									<td th:text="${info.lastLoginIp}">lastLoginIp</td>
+									<td class="last">
+										<a shiro:hasRole="system.user.update" href="javascript:doUrl('${basePath}/system/bptUser.do?toEdit&id=$!{info.id}')" >编辑</a>
+										<a shiro:hasRole="system.user.delete" href="javascript:delData('${basePath}/system/bptUser.do?doDelete&id=$!{info.id}')">删除</a>
+										<a shiro:hasRole="system.user.detail" href="javascript:doUrl('${basePath}/system/bptUser.do?toDetail&id=$!{info.id}')">详情</a>
+										</td>
 										</tr>
-									 #end
-								 #end
 								</tbody>
 							</table>
-							<div class="text-right">
-								<!--公用翻页代码-->
-								#set($attr='formSubmit')
-								#showPageList($pageInfos $attr)
-								<!--END公用翻页代码-->
-							</div>
+							<style>
+								/* page*/
+								#pageNav{padding-left:386px;}
+								#pageNav ul.pages {
+									display:block;
+									border:none;
+									text-transform:uppercase;
+									font-size:12px;
+									margin:10px 0 50px;
+									padding:0;
+								}
+								#pageNav ul.pages li {
+									list-style:none;
+									float:left;
+									border:1px solid #9AAFE5;
+									text-decoration:none;
+									margin:0 5px 0 0;
+									padding:5px;
+								}
+								#pageNav ul.pages li:hover {
+									border:1px solid #003f7e;
+								}
+								#pageNav ul.pages li.pgEmpty {
+
+								}
+								#pageNav ul.pages li.pgCurrent {
+									border:none;
+									/*border:1px solid #003f7e;*/
+									color:#000;
+									font-weight:700;
+									/*background-color:#eee;*/
+									background: none repeat scroll 0 0 #2E6AB1;
+									border: 1px solid #2E6AB1;
+									color: #FFFFFF;
+									font-weight: bold;
+								}
+							</style>
+							<div class="pager" id="pageNav"></div>
+<!--							<div class="text-right">
+								&lt;!&ndash;公用翻页代码&ndash;&gt;
+							</div>-->
 						</div>
 					</div>
 				</div>  
@@ -217,4 +106,17 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#pageNav").pager(
+				{
+					pageNo:"[[${pageNo}]]",
+					pagecount:"[[${pages?:0}]]",
+					buttonClickCallback:function(pageCurrent) {
+						document.getElementById('pageNo').value = pageCurrent;
+						document.getElementById('formSubmit').submit();
+					}
+				});
+	});
+</script>
 </html>

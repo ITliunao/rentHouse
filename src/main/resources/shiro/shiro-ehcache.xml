@@ -17,7 +17,7 @@
 	</bean>
 
 	<bean id="cacheManager"
-			class="com.bpt.common.cache.SpringCacheManagerWrapper">
+			class="com.xmmxjy.system.shiro.SpringCacheManagerWrapper">
 		<property name="cacheManager" ref="springCacheManager" />
 	</bean>
 	<bean id="sessionDAO"
@@ -27,7 +27,7 @@
 	</bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="com.bpt.common.shiro.EhcacheLoginMatcher">
+	<bean id="credentialsMatcher" class="com.xmmxjy.system.shiro.EhcacheLoginMatcher">
 		 <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>

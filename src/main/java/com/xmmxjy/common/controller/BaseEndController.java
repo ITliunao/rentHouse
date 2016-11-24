@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BaseEndController {
 
-    protected final static String END_PAGE = "end";
+    protected final static String END_PAGE = "end/";
 
     protected final static String LIST = "list";
 
