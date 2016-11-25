@@ -30,7 +30,7 @@ public class IndexController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(params = "home",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/home.do",method = {RequestMethod.GET,RequestMethod.POST})
     public String home(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
         return "end/include/home";
     }

@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Tools {
 	/**
@@ -114,4 +115,14 @@ public class Tools {
 	    }
 	    return md5StrBuff.toString();
 	  }
+
+	/**
+	 * 获取去掉横线的长度为32的UUID串.
+	 *
+	 * @author WuShuicheng.
+	 * @return uuid.
+	 */
+	public static String get32UUID() {
+		return UUID.randomUUID().toString().replace("-", "").toLowerCase();
+	}
 }

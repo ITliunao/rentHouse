@@ -4,7 +4,7 @@
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
-			<form role="form" class="form-inline" action="user/list.html" th:action="@{/user?list}" method="post"  id="formSubmit">
+			<form role="form" class="form-inline" action="user/list.html" th:action="@{/user/list.do}" method="post"  id="formSubmit">
 				<div  class="col-md-10" style="width:100%">
 					<div class="panel panel-default">
 						<div class="panel-heading">列表</div>
@@ -30,7 +30,7 @@
 							</div>
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/system/bptUser.do?toAdd')" >新增</button></legend> 
+								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/user/toAdd.do\');'" >新增</button></legend>
 							</div>
 							<table class="table table-striped">
 								<thead>
@@ -51,51 +51,13 @@
 									<td th:text="${info.lastLoginTime}">lastLoginTime</td>
 									<td th:text="${info.lastLoginIp}">lastLoginIp</td>
 									<td class="last">
-										<a shiro:hasRole="system.user.update" href="javascript:doUrl('${basePath}/system/bptUser.do?toEdit&id=$!{info.id}')" >编辑</a>
-										<a shiro:hasRole="system.user.delete" href="javascript:delData('${basePath}/system/bptUser.do?doDelete&id=$!{info.id}')">删除</a>
-										<a shiro:hasRole="system.user.detail" href="javascript:doUrl('${basePath}/system/bptUser.do?toDetail&id=$!{info.id}')">详情</a>
+										<a shiro:hasRole="system.user.delete" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<a shiro:hasRole="system.user.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/user/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<a shiro:hasRole="system.user.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
 										</td>
 										</tr>
 								</tbody>
 							</table>
-							<style>
-								/* page*/
-								#pageNav{padding-left:386px;}
-								#pageNav ul.pages {
-									display:block;
-									border:none;
-									text-transform:uppercase;
-									font-size:12px;
-									margin:10px 0 50px;
-									padding:0;
-								}
-								#pageNav ul.pages li {
-									list-style:none;
-									float:left;
-									border:1px solid #9AAFE5;
-									text-decoration:none;
-									margin:0 5px 0 0;
-									padding:5px;
-								}
-								#pageNav ul.pages li:hover {
-									border:1px solid #003f7e;
-								}
-								#pageNav ul.pages li.pgEmpty {
-
-								}
-								#pageNav ul.pages li.pgCurrent {
-									border:none;
-									/*border:1px solid #003f7e;*/
-									color:#000;
-									font-weight:700;
-									/*background-color:#eee;*/
-									background: none repeat scroll 0 0 #2E6AB1;
-									border: 1px solid #2E6AB1;
-									color: #FFFFFF;
-									font-weight: bold;
-								}
-							</style>
-							<!--<div class="pager" id="pageNav"></div>-->
 							<div class="text-right">
 								<ul class="pagination" id="pagination1"></ul>
 							</div>
