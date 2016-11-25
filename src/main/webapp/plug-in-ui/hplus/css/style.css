@@ -1353,6 +1353,7 @@ button.dim:active:before {
 
 /* PAGINATIN */
 
+/*
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,
@@ -1378,6 +1379,7 @@ button.dim:active:before {
     position: relative;
     text-decoration: none;
 }
+*/
 
 
 /* TOOLTIPS */
