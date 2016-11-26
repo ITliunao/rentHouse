@@ -51,9 +51,9 @@
 									<td th:text="${info.lastLoginTime}">lastLoginTime</td>
 									<td th:text="${info.lastLoginIp}">lastLoginIp</td>
 									<td class="last">
-										<a shiro:hasRole="system.user.delete" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-										<a shiro:hasRole="system.user.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/user/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-										<a shiro:hasRole="system.user.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<!--shiro:hasRole="system.user.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<!--shiro:hasRole="system.user.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/user/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<!--shiro:hasRole="system.user.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
 										</td>
 										</tr>
 								</tbody>
@@ -69,25 +69,12 @@
 	</div>
 </body>
 <script type="text/javascript">
-	/*$(document).ready(function() {
-		$("#pageNav").pager(
-				{
-					pageNo:"[[${pageNo}]]",
-					pagecount:"[[${pages?:0}]]",
-					buttonClickCallback:function(pageCurrent) {
-						document.getElementById('pageNo').value = pageCurrent;
-						document.getElementById('formSubmit').submit();
-					}
-				});
-	});*/
 		//当前页码
 		var pageNo = [[${pageNo}]];
 		//当前页数
 		var pages = [[${pages}]];
 
 		var visiblePages = pages;
-		console.log("pageNo : " + pageNo);
-		console.log("pages : " + pages);
 		if (pages >= 10) {
 			visiblePages = 10;
 		}

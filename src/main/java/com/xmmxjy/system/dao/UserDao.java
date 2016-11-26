@@ -31,4 +31,12 @@ public interface UserDao extends MyMapper<UserEntity> {
 	 * @return
 	 */
 	UserEntity selectByUsername(@Param("username") String username);
+
+	/**
+	 * 根据ID更新密码
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+    int updatePassword(String id, String password);
 }

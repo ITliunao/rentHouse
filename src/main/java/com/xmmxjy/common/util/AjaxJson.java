@@ -6,6 +6,7 @@ import java.util.Map;
 public class AjaxJson {
     private boolean success = true;
     private String msg = "操作成功";
+    private String status = "";
     private Object obj = null;
     private Map<String, Object> attributes;
 
@@ -42,5 +43,13 @@ public class AjaxJson {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

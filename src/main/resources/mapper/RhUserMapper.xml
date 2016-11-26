@@ -38,4 +38,11 @@
     </where>
 
   </select>
+
+
+<!--  <update id="updatePassword" parameterType="StudentEntity">
+    UPDATE rh_user
+    SET password = #{password},
+    WHERE rh_user.id = #{id};
+  </update>-->
 </mapper>

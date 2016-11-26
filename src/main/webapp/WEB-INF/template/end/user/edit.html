@@ -1,153 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
-#parse("content/base/back/common/head.vm")
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="end/include/head">
 <body style='overflow:scroll;overflow-x:hidden'>
-	<div class="container bs-docs-container" style="width:100%;">
-		<div class="row">
-			<div class="panel panel-default">
-				<div class="panel-heading">编辑</div>
-				<div class="panel-body">
-					<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/system/bptUser.do?doEdit" method="POST">
-						<input type="hidden" id="btn_sub" class="btn_sub" />
-						<input type="hidden" value="$!{bptUser.id}" name="id" id="id" />
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">用户名</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.username}" name="username" id="username" class="form-control"  datatype="*" />
-								    </div>
-								</div>
-								<!--<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">盐值</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.salt}" name="salt" id="salt" class="form-control" />
-								    </div>
-								</div>-->
-								<!--<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">密码</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.password}" name="password" id="password" class="form-control" />
-								    </div>
-								</div>-->
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">真实姓名</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.realName}" name="realName" id="realName" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">用户状态</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.status}" name="status" id="status" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">邮箱</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.email}" name="email" id="email" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">生日</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.birthday})" name="birthday" id="birthday" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;"  />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">性别</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.sex}" name="sex" id="sex" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">手机号码</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.mobilePhone}" name="mobilePhone" id="mobilePhone" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">办公室电话</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.officePhone}" name="officePhone" id="officePhone" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">所属区域</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.region}" name="region" id="region" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">上次登录时间</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.lastLoginTime}" name="lastLoginTime" id="lastLoginTime" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">上次登录IP</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.lastLoginIp}" name="lastLoginIp" id="lastLoginIp" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">角色ID</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.roleId}" name="roleId" id="roleId" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">部门ID</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.departId}" name="departId" id="departId" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.updateName}" name="updateName" id="updateName" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.updateDate})" name="updateDate" id="updateDate" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;"  />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.updateBy}" name="updateBy" id="updateBy" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.createName}" name="createName" id="createName" class="form-control" />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{bptUser.createDate})" name="createDate" id="createDate" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;"  />
-								    </div>
-								</div>
-								<div class="form-group mno">
-								    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
-								    <div class="col-sm-8">
-								    	<input type="text" value="$!{bptUser.createBy}" name="createBy" id="createBy" class="form-control" />
-								    </div>
-								</div>
-						<div class="form-group mno">
-							<div class="col-sm-offset-1 col-sm-6">
-								<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/system/bptUser.do?list')">返回</button>
-								<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
-							</div>
+<div class="container bs-docs-container" style="width:100%;">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">修改</div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" id="dailogForm" action="user/add.html" th:action="@{/user/doEdit.do}" method="POST">
+					<input type="hidden" id="btn_sub" class="btn_sub" />
+					<input type="hidden" th:value="${user.id}" name="id"/>
+					<div class="form-group mno">
+						<label for="username" class="col-sm-2 control-label" style="text-align:left;">用户名</label>
+						<div class="col-sm-8">
+							<input type="text" name="username" id="username" th:value="${user.username}" class="form-control"  datatype="*" />
 						</div>
-					</form>
-				</div>
+					</div>
+					<div class="form-group mno">
+						<label for="realName" class="col-sm-2 control-label" style="text-align:left;">真实姓名</label>
+						<div class="col-sm-8">
+							<input type="text" name="realName" th:value="${user.realName}"  id="realName" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="status" class="col-sm-2 control-label" style="text-align:left;">用户状态</label>
+						<div class="col-sm-8">
+							<input type="text" name="status" id="status" th:value="${user.status}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="email" class="col-sm-2 control-label" style="text-align:left;">邮箱</label>
+						<div class="col-sm-8">
+							<input type="text" name="email" id="email" th:value="${user.email}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="birthday" class="col-sm-2 control-label" style="text-align:left;">生日</label>
+						<div class="col-sm-8">
+							<input type="text" name="birthday" id="birthday" th:value="${#dates.format(user.birthday,'yy-MMMM-dd')}" class="form-control"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   th:style="'background: url(' + @{/plug-in-ui/images/datetime.png} + ') no-repeat scroll right center transparent;'" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="sex" class="col-sm-2 control-label" style="text-align:left;">性别</label>
+						<div class="col-sm-8">
+							<input type="text"  name="sex" id="sex" th:value="${user.sex}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="mobilePhone" class="col-sm-2 control-label" style="text-align:left;">手机号码</label>
+						<div class="col-sm-8">
+							<input type="text" name="mobilePhone" id="mobilePhone" th:value="${user.mobilePhone}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="officePhone" class="col-sm-2 control-label" style="text-align:left;">办公室电话</label>
+						<div class="col-sm-8">
+							<input type="text" name="officePhone" id="officePhone" th:value="${user.officePhone}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="region" class="col-sm-2 control-label" style="text-align:left;">所属区域</label>
+						<div class="col-sm-8">
+							<input type="text" name="region" id="region" th:value="${user.region}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="lastLoginTime" class="col-sm-2 control-label" style="text-align:left;">上次登录时间</label>
+						<div class="col-sm-8">
+							<input type="text" name="lastLoginTime" id="lastLoginTime" th:value="${user.lastLoginTime}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="lastLoginIp" class="col-sm-2 control-label" style="text-align:left;">上次登录IP</label>
+						<div class="col-sm-8">
+							<input type="text" name="lastLoginIp" id="lastLoginIp" th:value="${user.lastLoginIp}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="roleId" class="col-sm-2 control-label" style="text-align:left;">角色ID</label>
+						<div class="col-sm-8">
+							<input type="text" name="roleId" id="roleId" th:value="${user.roleId}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="departId" class="col-sm-2 control-label" style="text-align:left;">部门ID</label>
+						<div class="col-sm-8">
+							<input type="text" name="departId" id="departId" th:value="${user.departId}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateName" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
+						<div class="col-sm-8">
+							<input type="text" name="updateName" id="updateName"  th:value="${user.updateName}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateDate" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
+						<div class="col-sm-8">
+							<input type="text"  name="updateDate" id="updateDate" th:value="${#dates.format(user.updateDate, 'yyyy-MM-dd HH:mm:ss SSS')}" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateBy" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
+						<div class="col-sm-8">
+							<input type="text" name="updateBy" id="updateBy" th:value="${user.updateBy}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createName" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
+						<div class="col-sm-8">
+							<input type="text" name="createName" id="createName" th:value="${user.createName}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createDate" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
+						<div class="col-sm-8">
+							<input type="text" name="createDate" id="createDate" th:value="${#dates.format(user.createDate, 'yyyy-MM-dd HH:mm:ss SSS')}" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   th:style="'background: url(' + @{/plug-in-ui/images/datetime.png} +') no-repeat scroll right center transparent;'" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createBy" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
+						<div class="col-sm-8">
+							<input type="text"  name="createBy" id="createBy" th:value="${user.createBy}" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<div class="col-sm-offset-1 col-sm-6">
+							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/user/list.do} +'\');'">返回</button>
+							<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>
-<script type="text/javascript" src="$!{basePath}/plug-in-ui/js/Validform_v5.3.2.js"></script> 
-<script type="text/javascript" src="$!{basePath}/plug-in-ui/js/forminit.p3.js"></script>  
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/Validform_v5.3.2.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/forminit.p3.js}"></script>

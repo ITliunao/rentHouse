@@ -31,5 +31,6 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
 
+
     //TODO 其他...
 }

@@ -42,4 +42,9 @@ public class UserServiceImpl  extends BaseServiceImpl<UserEntity> implements Use
 	public List<UserEntity> list(UserEntity user) {
 		return userDao.select(user);
 	}
+
+	@Override
+	public int update(String id, String password) {
+		return userDao.updatePassword(id,password);
+	}
 }

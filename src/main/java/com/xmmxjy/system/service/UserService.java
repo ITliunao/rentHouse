@@ -41,4 +41,11 @@ public interface UserService extends BaseService<UserEntity>{
 
 
 	List<UserEntity> list (UserEntity user);
+
+	/**
+	 * 根据用户id更新密码
+	 * @param id
+	 * @param password
+	 */
+	int update(String id, String password);
 }

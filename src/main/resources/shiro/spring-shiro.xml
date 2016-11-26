@@ -104,7 +104,7 @@
 				/account/get = anon
 				/login.json=anon
 				/monitoring=anon
-				/** = user
+				/** = anon
 			</value>
 		</constructor-arg>
 	</bean>

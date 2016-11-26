@@ -116,26 +116,28 @@ function ajaxdoForm(formId) {
  */
 function ajaxdoFormSubmit(formId) {
 	var url = $('#' + formId).attr("action");
+	console.log("formId : " + formId);
+	console.log("url : " + url);
 	$('#'+formId).ajaxSubmit({
         url: url,
         type: 'post',
         dataType: 'json',
         success: function(data, status){
         	if(data.status == "401"){
-				alert("没有权限！");
+				swal("没有权限！");
 				return;
 			}
         	if(data.success){
-        		alert(data.msg);
+				swal(data.msg);
         		//location.reload();
         		$('#formReturn').click();
         	}else{
-        		alert(data.msg);
+				swal(data.msg);
         	}
         },  
         error: function(data, status, e){  
         	if(data.status == "401"){
-				alert("没有权限！");
+				swal("没有权限！");
 				return;
 			}
         }
@@ -143,28 +145,41 @@ function ajaxdoFormSubmit(formId) {
 }
 
 function delData(url){
-	if(confirm("确认删除吗？")){
-		$.ajax({
-	      url: url,
-	      cache: false,
-		  dataType: "json",
-	      success: function(data){
-	    	  	if(data.success){
-	        		alert(data.msg);
-	        		document.getElementById('formSubmit').submit();
-	        	}else{
-	        		alert(data.msg);
-	        	}
-	      },  
-	        error: function(data, status, e){  
-	        	if(data.status == "401"){
-					alert("没有权限！");
-					return;
+	swal({
+			title: "确认提交吗？",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确认",
+			cancelButtonText: "取消",
+			closeOnConfirm: false,
+			closeOnCancel: true
+		},
+		function(isConfirm){
+			$.ajax({
+				url: url,
+				cache: false,
+				dataType: "json",
+				success: function(data){
+					if(data.success){
+						swal(data.msg);
+						setTimeout(function(){
+							$('#formSubmit').submit();
+						},2000)
+					}else{
+						swal(data.msg);
+					}
+				},
+				error: function(data, status, e){
+					if(data.status == "401"){
+						swal("没有权限！");
+						return;
+					}
 				}
-	        }
-	    });
-	}
-	
+			});
+		}
+	)
+
 }
 
 function delDataGrid(url){

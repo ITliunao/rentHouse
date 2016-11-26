@@ -13,6 +13,7 @@ import com.xmmxjy.common.util.EndUtil;
 import com.xmmxjy.common.util.Tools;
 import com.xmmxjy.system.entity.UserEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,6 @@ public class UserController extends BaseEndController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String save(Model model) {
-		return "";
-	}
-
 
 	/**
 	 * 列表页面
@@ -76,6 +72,13 @@ public class UserController extends BaseEndController {
 		return END_PAGE + CURRENT_PAGE + LIST;
 	}
 
+	/**
+	 * 新增页面
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequiresPermissions("system.user.add")
 	@RequestMapping(value = "/toAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
 	public String toAdd(HttpServletRequest request,HttpServletResponse response,ModelMap model){
@@ -83,9 +86,47 @@ public class UserController extends BaseEndController {
 		return END_PAGE + CURRENT_PAGE + ADD;
 	}
 
-	@RequestMapping(params = "doAdd",method ={RequestMethod.GET, RequestMethod.POST})
+	/**
+	 * 修改页面
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("system.user.edit")
+	@RequestMapping(value = "/toEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
+	public String toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		EndUtil.sendEndParams(request,model);
+		UserEntity user = userService.selectByPrimaryKey(id);
+		model.addAttribute("user",user);
+		return END_PAGE + CURRENT_PAGE + EDIT;
+	}
+
+	/**
+	 * 修改页面
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("system.user.detail")
+	@RequestMapping(value = "/toDetail.do",method ={RequestMethod.GET, RequestMethod.POST})
+	public String toDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		EndUtil.sendEndParams(request,model);
+		UserEntity user = userService.selectByPrimaryKey(id);
+		model.addAttribute("user",user);
+		return END_PAGE + CURRENT_PAGE + DETAIL;
+	}
+
+
+	/**
+	 * 保存方法
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/doAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAdd(@ModelAttribute UserEntity user){
+	public AjaxJson doAdd(@ModelAttribute("user") UserEntity user){
 		AjaxJson j = new AjaxJson();
 		try {
 			user.setId(Tools.get32UUID());
@@ -95,6 +136,93 @@ public class UserController extends BaseEndController {
 			logger.info(e.getMessage());
 			j.setSuccess(false);
 			j.setMsg("保存失败");
+		}
+		return j;
+	}
+
+	/**
+	 * 更新方法
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/doEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public AjaxJson doEdit(@ModelAttribute("user") UserEntity user){
+		AjaxJson j = new AjaxJson();
+		try {
+			int i = userService.updateByPrimaryKey(user);
+			logger.info("i : ---- {}",i);
+			j.setMsg("更新成功");
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			j.setSuccess(false);
+			j.setMsg("更新失败");
+		}
+		return j;
+	}
+
+	@RequestMapping(value = "/doDelete.do",method ={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public AjaxJson doDelete(@RequestParam(required = true, value = "id")String id){
+		AjaxJson j = new AjaxJson();
+		try {
+			userService.delete(id);
+			j.setMsg("删除成功");
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			j.setSuccess(false);
+			j.setMsg("删除失败");
+		}
+		return j;
+	}
+
+	/**
+	 * 修改密码
+	 * @return
+	 */
+	@RequestMapping(params = "doPassword",method ={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public AjaxJson doPassword(@RequestParam(required = true, value = "id" ) String id,
+							   @RequestParam(required = true, value = "password" ) String password,
+							   @RequestParam(required = true, value = "newPassword" ) String newPassword,
+							   @RequestParam(required = true, value = "confirmPassword" ) String confirmPassword){
+		AjaxJson j = new AjaxJson();
+		try {
+			UserEntity user =  userService.selectByPrimaryKey(id);
+			if (Tools.isEmpty(password)) {
+				j.setMsg("旧密码不能为空");
+				j.setSuccess(false);
+				return j;
+			}
+			if (!user.getPassword().equals(new Md5Hash(password).toString())){
+				j.setMsg("旧密码有误，无法修改");
+				j.setSuccess(false);
+				return j;
+			}
+			if (Tools.isEmpty(newPassword)) {
+				j.setMsg("新密码不能为空");
+				j.setSuccess(false);
+				return j;
+			}
+			if (Tools.isEmpty(confirmPassword)) {
+				j.setMsg("确认密码不能为空");
+				j.setSuccess(false);
+				return j;
+			}
+			if (!newPassword.equals(confirmPassword)) {
+				j.setMsg("两次密码输入不一致，不能修改");
+				j.setSuccess(false);
+				return j;
+			}
+			UserEntity user2 = new UserEntity();
+			user2.setId(id);
+			user2.setPassword(newPassword);
+			userService.updateByPrimaryKey(user2);
+			j.setMsg("修改密码成功");
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			j.setSuccess(false);
+			j.setMsg("修改密码失败");
 		}
 		return j;
 	}

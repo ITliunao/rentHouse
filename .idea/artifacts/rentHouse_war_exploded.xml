@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="rentHouse:war exploded">
+  <artifact type="exploded-war" build-on-make="true" name="rentHouse:war exploded">
     <output-path>$PROJECT_DIR$/target/rentHouse</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -10,6 +10,7 @@
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0" />
           <element id="library" level="project" name="Maven: javax.websocket:javax.websocket-api:1.0" />
