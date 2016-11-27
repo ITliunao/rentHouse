@@ -7,6 +7,8 @@ import com.xmmxjy.system.service.FunctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 描述：菜单
  * @author: xmm
@@ -22,6 +24,23 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
 
 	public String getMaxLocalCode(String localCodeLength, String parentCode) {
 		return functionDao.getMaxLocalCode(localCodeLength, parentCode);
+	}
+
+	@Override
+	public List<FunctionEntity> list(FunctionEntity function) {
+		return functionDao.select(function);
+	}
+
+	@Override
+	public List<FunctionEntity> selectAll() {
+		return functionDao.selectAll();
+	}
+
+	@Override
+	public List<FunctionEntity> list(int functionLevel1) {
+		FunctionEntity functionEntity = new FunctionEntity();
+		functionEntity.setFunctionlevel(functionLevel1);
+		return functionDao.select(functionEntity);
 	}
 
 

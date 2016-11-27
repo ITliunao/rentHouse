@@ -152,7 +152,11 @@ public class UserController extends BaseEndController {
 		try {
 			int i = userService.updateByPrimaryKey(user);
 			logger.info("i : ---- {}",i);
-			j.setMsg("更新成功");
+			if (i > 0) {
+				j.setMsg("更新成功");
+			} else {
+				j.setMsg("更新失败");
+			}
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			j.setSuccess(false);
@@ -166,8 +170,12 @@ public class UserController extends BaseEndController {
 	public AjaxJson doDelete(@RequestParam(required = true, value = "id")String id){
 		AjaxJson j = new AjaxJson();
 		try {
-			userService.delete(id);
-			j.setMsg("删除成功");
+			int i= userService.delete(id);
+			if (i > 0) {
+				j.setMsg("删除成功");
+			} else {
+				j.setMsg("删除失败");
+			}
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			j.setSuccess(false);

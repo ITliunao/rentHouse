@@ -4,7 +4,7 @@
             <div class="navbar-header" style="height: 60px;"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                 <form role="search" class="navbar-form-custom" method="post" action="search_results.html" style="width: 250px;">
                     <div class="form-group">
-                        <input type="text" placeholder="欢迎使用blueApp支付中心" class="form-control" name="top-search" id="top-search">
+                        <input type="text" placeholder="java后台管理系统" class="form-control" name="top-search" id="top-search">
                     </div>
                 </form>
             </div>
@@ -33,13 +33,13 @@
                     </li>
                 </ul>
             </div>
-            <a href="${basePath}/logout"  th:href="@{/system/logout}"  class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="login.html"  th:href="@{/logout.do}"  class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </nav></div>
     <div class="row J_mainContent" id="content-main">
-        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" th:src="@{/index/home.do}" frameborder="0" data-id="${basePath}/index.do?home" seamless=""></iframe>
+        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" th:src="@{/home.do}" frameborder="0" data-id="${basePath}/home.do" seamless=""></iframe>
     </div>
     <div class="footer">
-        <div class="pull-right">© 3.6.3 <a href="http://www.jeecg.org/" target="_blank">jeecg</a>
+        <div class="pull-right">© <a href="http://www.xmmxjy.com/" target="_blank">xmmxjy</a>
         </div>
     </div>
 </div>

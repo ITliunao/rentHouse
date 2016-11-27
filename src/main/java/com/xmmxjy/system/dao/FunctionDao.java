@@ -3,6 +3,7 @@ package com.xmmxjy.system.dao;
 
 import com.xmmxjy.common.mapper.MyMapper;
 import com.xmmxjy.system.entity.FunctionEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
 public interface FunctionDao extends MyMapper<FunctionEntity> {
 
 
-	String getMaxLocalCode(String localCodeLength, String parentCode);
+	String getMaxLocalCode(@Param("localCodeLength") String localCodeLength,@Param("parentCode") String parentCode);
 }
 

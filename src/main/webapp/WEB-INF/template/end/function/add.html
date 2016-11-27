@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="end/include/head">
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">新增</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form" id="dailogForm" action="function/add.html" th:action="@{/function/doAdd.do}" method="POST">
+						<input type="hidden" id="btn_sub" class="btn_sub" />
+						<div class="form-group mno">
+							<label for="functionlevel" class="col-sm-2 control-label" style="text-align:left;">菜单级别</label>
+							<div class="col-sm-8">
+								<select name="functionlevel" id="functionlevel"  class="form-control" placeholder="菜单级别">
+									<option value="1">一级菜单</option>
+									<option value="2">二级菜单</option>
+									<option value="3">按钮</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="functionname" class="col-sm-2 control-label" style="text-align:left;">菜单名称</label>
+							<div class="col-sm-8">
+								<input type="text" name="functionname" id="functionname" class="form-control"  datatype="*" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="functionorder" class="col-sm-2 control-label" style="text-align:left;">菜单顺序</label>
+							<div class="col-sm-8">
+								<input type="text" name="functionorder" id="functionorder" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="functionurl" class="col-sm-2 control-label" style="text-align:left;">菜单地址</label>
+							<div class="col-sm-8">
+								<input type="text" name="functionurl" id="functionurl" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="permission" class="col-sm-2 control-label" style="text-align:left;">菜单权限</label>
+							<div class="col-sm-8">
+								<input type="text" name="permission" id="permission" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="parentFunctionId" class="col-sm-2 control-label" style="text-align:left;">父ID</label>
+							<div class="col-sm-8">
+								<input type="hidden" name="parentFunctionId" id="pId" class="form-control" />
+								<input type="text" value="" id="parentFunctionId" readonly class="form-control" onclick="showMenu();"/>
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="icon" class="col-sm-2 control-label" style="text-align:left;">图标的css样式</label>
+							<div class="col-sm-8">
+								<input type="text" name="icon" id="icon" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="functionType" class="col-sm-2 control-label" style="text-align:left;">菜单类型</label>
+							<div class="col-sm-8">
+								<input type="text" name="functionType" id="functionType" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="createBy" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
+							<div class="col-sm-8">
+								<input type="text" name="createBy" id="createBy" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="createName" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
+							<div class="col-sm-8">
+								<input type="text" name="createName" id="createName" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="updateBy" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
+							<div class="col-sm-8">
+								<input type="text"  name="updateBy" id="updateBy" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="updateDate" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
+							<div class="col-sm-8">
+								<input type="text"  name="updateDate" id="updateDate" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" readonly="true"/>
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="createDate" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
+							<div class="col-sm-8">
+								<input type="text" name="createDate" id="createDate" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   th:style="'background: url(' + @{/plug-in-ui/images/datetime.png} +') no-repeat scroll right center transparent;'" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<label for="updateName" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
+							<div class="col-sm-8">
+								<input type="text" name="updateName" id="updateName" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group mno">
+							<div class="col-sm-offset-1 col-sm-6">
+								<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/function/list.do} +'\');'">返回</button>
+								<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+							 </div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+		<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+	</div>
+</body>
+</html>
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/Validform_v5.3.2.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/forminit.p3.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.core.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.excheck.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.exedit.js}"></script>
+<script type="text/javascript">
+	var IDMark_A = "_a";
+
+	function showMenu() {
+		var cityObj = $("#parentFunctionId");
+		var cityOffset = $("#parentFunctionId").offset();
+		if($("#menuContent").is(':hidden')){
+			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+		}else{
+			$("#menuContent").fadeOut("fast");
+		}
+		$("body").bind("mousedown", onBodyDown);
+	}
+	function hideMenu() {
+		$("#menuContent").fadeOut("fast");
+		$("body").unbind("mousedown", onBodyDown);
+	}
+	function onBodyDown(event) {
+		if (!(event.target.id == "parentFunctionId" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+			hideMenu();
+		}
+	}
+
+	var setting = {
+		check: {
+			enable: true,
+			chkStyle: "radio",
+			radioType: "all"
+		},
+		view: {
+			//addHoverDom: addHoverDom,
+			//removeHoverDom: removeHoverDom,
+			dblClickExpand: false
+		},
+
+		data: {
+			key: {
+				name: "functionname"
+			},
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "parentFunctionId",
+				rootPId: null
+			}
+		},
+		callback: {
+			onClick: onClick,
+			onCheck: onCheck
+		}
+	};
+	function onClick(e, treeId, treeNode) {
+		var tree = zTree.getZTreeObj("treeDemo");
+		tree.checkNode(treeNode, !treeNode.checked, null, true);
+		return false;
+	}
+	function onCheck(e, treeId, treeNode) {
+		var tree = zTree.getZTreeObj("treeDemo"),
+				nodes = tree.getCheckedNodes(true),
+				v = "",vid = "";
+		for (var i=0, l=nodes.length; i<l; i++) {
+			v += nodes[i].functionname + ",";
+			vid += nodes[i].id + ",";
+		}
+		if (v.length > 0 ) v = v.substring(0, v.length-1);
+		if (vid.length > 0 ) vid = vid.substring(0, vid.length-1);
+		$("#parentFunctionId").val(v);
+		$("#pId").val(vid);
+	}
+	function addHoverDom(treeId, treeNode) {
+		if (treeNode.parentNode && treeNode.parentNode.id!=1) return;
+		var aObj = $("#" + treeNode.tId + IDMark_A);
+		if ($("#diyBtn_"+treeNode.id).length>0) return;
+		var editStr = "<span id='diyBtn_" +treeNode.id+ "'>编码:"+treeNode.id+"</span>";
+		aObj.after(editStr);
+	}
+	function removeHoverDom(treeId, treeNode) {
+		$("#diyBtn_"+treeNode.id).unbind().remove();
+		$("#diyBtn_space_" +treeNode.id).unbind().remove();
+	}
+
+	var zNodes;
+	$(document).ready(function(){
+		$.ajax({
+			async : false,
+			cache:false,
+			type: 'POST',
+			dataType : "json",
+			url: '[[${basePath}]]/function/tree.do',//请求的action路径
+			error: function () {//请求失败处理函数
+				alert('请求失败');
+			},
+			success:function(data){ //请求成功后处理函数。
+				zNodes = data;   //把后台封装好的简单Json格式赋给zNodes
+				console.log(zNodes);
+			}
+		});
+		zTree.init($("#treeDemo"), setting, zNodes);
+	});
+</script>

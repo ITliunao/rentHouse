@@ -23,6 +23,8 @@ public class BaseEndController {
 
     protected final static String DETAIL = "detail";
 
+    protected final static String LOGIN = "login";
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new DateConvertEditor());

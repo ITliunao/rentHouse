@@ -1,5 +1,4 @@
 
-
 $(function (){
 /*			var form = $("#dailogForm").Validform();
         	form.config({tiptype:4});
@@ -43,22 +42,22 @@ $(function (){
 							dataType: 'json',
 							success: function(data, status){
 								if(data.status == "401"){
-									swal("没有权限！");
+									sweetInfo("没有权限！");
 									return;
 								}
 								if(data.success){
-									swal(data.msg);
+									sweetSuccess(data.msg);
 									setTimeout(function () {
 										$('#formReturn').click();
 									}, 2000);
 									//location.reload();
 								}else{
-									swal(data.msg);
+									sweetInfo(data.msg);
 								}
 							},
 							error: function(data, status, e){
 								if(data.status == "401"){
-									swal("没有权限！");
+									sweetInfo("没有权限！");
 									return;
 								}
 							}
@@ -66,7 +65,7 @@ $(function (){
 					}
 				});
 		}else{
-			swal("信息校验没有通过，请检查填写的信息")
+			sweetInfo("信息校验没有通过，请检查填写的信息")
 		}
 	});
 });

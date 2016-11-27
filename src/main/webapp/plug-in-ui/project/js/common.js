@@ -144,6 +144,19 @@ function ajaxdoFormSubmit(formId) {
 	}); 
 }
 
+function sweetSuccess(msg){
+	swal({
+		title:msg,
+		type:"success"
+	});
+}
+function sweetInfo(msg){
+	swal({
+		title:msg,
+		type:"info"
+	});
+}
+
 function delData(url){
 	swal({
 			title: "确认提交吗？",
@@ -162,17 +175,17 @@ function delData(url){
 				dataType: "json",
 				success: function(data){
 					if(data.success){
-						swal(data.msg);
+						sweetSuccess(data.msg);
 						setTimeout(function(){
 							$('#formSubmit').submit();
 						},2000)
 					}else{
-						swal(data.msg);
+						sweetInfo(data.msg);
 					}
 				},
 				error: function(data, status, e){
 					if(data.status == "401"){
-						swal("没有权限！");
+						sweetInfo("没有权限！");
 						return;
 					}
 				}
