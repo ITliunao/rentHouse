@@ -48,4 +48,12 @@ public interface UserService extends BaseService<UserEntity>{
 	 * @param password
 	 */
 	int update(String id, String password);
+
+	/**
+	 * 保存
+	 * @param entity
+	 * @return
+	 */
+	int saveUser(UserEntity entity);
+
 }

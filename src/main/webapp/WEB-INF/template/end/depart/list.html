@@ -6,62 +6,49 @@
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
-			<form role="form" class="form-inline" action="function/list.html" th:action="@{/function/list.do}" method="post"  id="formSubmit">
+			<form role="form" class="form-inline" action="function/list.html" th:action="@{/depart/list.do}" method="post" id="formSubmit">
 				<div  class="col-md-10" style="width:100%">
 					<div class="panel panel-default">
 						<div class="panel-heading">列表</div>
 						<div class="panel-body">
 							<input name="pageNo" id="pageNo" value="1" th:value="${pageNo}" type="hidden">
 							<input name="pageSize" id="pageSize" value="10" th:value="${pageSize}" type="hidden">
-							<!--<div class="search">
+							<div class="search">
 								<div class="form-group col-sm-3">
-									<label for="functionlevel" class="control-label col-sm-3 line34">菜单级别</label>
+									<label for="departName" class="control-label col-sm-3 line34">部门名称</label>
 									<div class="col-sm-8">
-										<input type="text" name="functionlevel" id="functionlevel" th:value="${query.functionlevel}" class="form-control">
-									</div>
-								</div>
-								<div class="form-group col-sm-3">
-									<label for="functionname" class="control-label col-sm-3 line34">菜单名称</label>
-									<div class="col-sm-8">
-										<input type="text" name="functionname" id="functionname" th:value="${query.functionname}" class="form-control">
-									</div>
-								</div>
-
-								<div class="form-group col-sm-3">
-									<label for="functionType" class="control-label col-sm-3 line34">菜单类型</label>
-									<div class="col-sm-8">
-										<input type="text" name="functionType" id="functionType" th:value="${query.functionType}" class="form-control">
+										<input type="text" name="departName" id="departName" th:value="${query.departName}" class="form-control">
 									</div>
 								</div>
 								<button type="submit" class="btn btn-primary">搜  索</button>
 								<div class="clearfix"></div>
-							</div>-->
+							</div>
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/function/toAdd.do\');'" >新增</button></legend>
+								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/depart/toAdd.do\');'" >新增</button></legend>
 							</div>
 							<table class="table table-striped table-hover table-condensed table-bordered" id="treeTable1">
 									<thead>
-									<th>菜单名称</th>
-									<th>菜单级别</th>
-									<th>菜单顺序</th>
-									<th>菜单权限</th>
-									<th>图标的css样式</th>
-									<th>菜单类型</th>
+									<th>部门名称</th>
+									<th>部门描述</th>
+									<th>部门编码</th>
+									<th>部门类型</th>
+									<th>手机号码</th>
+									<th>地址</th>
 									<th>操作</th>
 									</thead>
 								<tbody>
-								<tr th:each ="info :${list}" th:id="${info.id}" th:attr="pId=${info.parentFunctionId}">
-									<td controller="true" th:text="${info.functionname}">functionname</td>
-									<td th:text="${info.functionlevel}">functionlevel</td>
-									<td th:text="${info.functionorder}">functionorder</td>
-									<td th:text="${info.permission}">permission</td>
-									<td th:text="${info.icon}">icon</td>
-									<td th:text="${info.functionType}">functionType</td>
+								<tr th:each ="info :${list}" th:id="${info.id}" th:attr="pId=${info.parentDepartId}">
+									<td controller="true" th:text="${info.departName}">departName</td>
+									<td th:text="${info.description}">description</td>
+									<td th:text="${info.orgCode}">orgCode</td>
+									<td th:text="${info.orgType}">orgType</td>
+									<td th:text="${info.mobile}">mobile</td>
+									<td th:text="${info.address}">address</td>
 									<td class="last">
-										<!--shiro:hasRole="system.function.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-										<!--shiro:hasRole="system.function.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/function/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-										<!--shiro:hasRole="system.function.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<!--shiro:hasRole="system.function.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/depart/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<!--shiro:hasRole="system.function.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/depart/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<!--shiro:hasRole="system.function.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/depart/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
 										</td>
 										</tr>
 								</tbody>

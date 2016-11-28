@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Tools {
@@ -125,4 +126,38 @@ public class Tools {
 	public static String get32UUID() {
 		return UUID.randomUUID().toString().replace("-", "").toLowerCase();
 	}
+
+
+
+	/**
+	 * 判断list是否为空
+	 * @param list
+	 * @return
+	 */
+	public static boolean  isListEmpty(List list){
+		if (list == null) {
+			return true;
+		}
+		if (list.size() == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 把list<String>转化为逗号分隔的string
+	 * @param list
+	 * @return
+	 */
+	public static String listToString(List<String> list) {
+		StringBuffer sb = new StringBuffer();
+		if (isListEmpty(list)) {
+			return  null;
+		}
+		for (String str : list) {
+			sb.append(str).append(",");
+		}
+		return sb.substring(0,sb.length()-1);
+	}
+
 }

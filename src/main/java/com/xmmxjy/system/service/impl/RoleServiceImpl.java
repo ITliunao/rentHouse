@@ -36,4 +36,5 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleEntity> implements Role
 		}
 		return pList;
 	}
+
 }

@@ -107,3 +107,53 @@ CREATE TABLE rh_role_function (
   CONSTRAINT fk_function_role_id FOREIGN KEY (function_id) REFERENCES rh_function (id),
   CONSTRAINT fk_role_function_id FOREIGN KEY (role_id) REFERENCES rh_role (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS rh_dict_type;
+CREATE TABLE rh_dict_type (
+  id varchar(32) NOT NULL,
+  name varchar(50) NOT NULL,
+  code varchar(32) NOT NULL,
+  description varchar(100) DEFAULT NULL,
+    seq int(11) NOT NULL COMMENT '排序，由小到大',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS rh_dict_data;
+CREATE TABLE rh_dict_data (
+  id varchar(32) NOT NULL,
+  name varchar(32) NOT NULL COMMENT '名称',
+  value varchar(255) NOT NULL COMMENT '对应的值',
+  seq int(11) NOT NULL COMMENT '排序，由小到大',
+  create_by varchar(32) DEFAULT NULL COMMENT '创建人id',
+  create_name varchar(32) DEFAULT NULL COMMENT '创建人',
+  update_by varchar(32) DEFAULT NULL COMMENT '修改人id',
+  update_date datetime DEFAULT NULL COMMENT '修改时间',
+  create_date datetime DEFAULT NULL COMMENT '创建时间',
+  update_name varchar(32) DEFAULT NULL COMMENT '修改人',
+  dict_type_id int(11) NOT NULL COMMENT '字典类型ID',
+  PRIMARY KEY (`id`),
+  KEY fk_dict_type_id (dict_type_id),
+  CONSTRAINT fk_dict_type_id FOREIGN KEY (dict_type_id) REFERENCES rh_dict_type (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/*
+CREATE TABLE rh_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL COMMENT '系统用户ID',
+  `from` varchar(255) DEFAULT NULL COMMENT '来源 url',
+  `ip` varchar(22) DEFAULT NULL COMMENT '客户端IP',
+  `url` varchar(255) DEFAULT NULL,
+  `date` datetime DEFAULT NULL COMMENT '记录时间',
+  `err_msg` text COMMENT '异常信息',
+  `err_code` int(10) DEFAULT '0' COMMENT '状态码，0：正常',
+  `class_name` varchar(200) DEFAULT NULL COMMENT 'controller类名',
+  `method_name` varchar(64) DEFAULT NULL COMMENT '方法名',
+  `start_time` datetime DEFAULT NULL COMMENT '操作时间',
+  `spend_time` bigint(20) DEFAULT NULL COMMENT '耗时，毫秒',
+  `params` text COMMENT '提供的参数',
+  PRIMARY KEY (`id`),
+  KEY `FK_sys_EVENT` (`uid`),
+  CONSTRAINT `sys_log_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=37061 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;*/

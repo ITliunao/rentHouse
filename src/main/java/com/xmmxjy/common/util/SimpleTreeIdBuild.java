@@ -1,5 +1,6 @@
 package com.xmmxjy.common.util;
 
+import com.xmmxjy.common.service.BaseService;
 import com.xmmxjy.system.service.FunctionService;
 
 
@@ -11,7 +12,7 @@ import com.xmmxjy.system.service.FunctionService;
  */
 public class SimpleTreeIdBuild {
 	
-	public String getId(FunctionService functionService, String parentCode) {
+	public String getId(BaseService functionService, String parentCode) {
 		
 		String idCode = null;
 		String localMaxCode = null;
@@ -27,7 +28,7 @@ public class SimpleTreeIdBuild {
 		
 	}
 	
-	private synchronized String getMaxLocalCode(FunctionService functionService,String parentCode){
+	private synchronized String getMaxLocalCode(BaseService functionService,String parentCode){
 		if(Tools.isEmpty(parentCode)){
 			parentCode = "";
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.xmmxjy.system.entity.UserEntity;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,11 @@ public class UserServiceImpl  extends BaseServiceImpl<UserEntity> implements Use
 	@Override
 	public int update(String id, String password) {
 		return userDao.updatePassword(id,password);
+	}
+
+	@Override
+	public int saveUser(UserEntity entity) {
+		entity.setPassword(new Md5Hash(entity.getPassword()).toString());
+		return userDao.insert(entity);
 	}
 }

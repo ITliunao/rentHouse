@@ -26,6 +26,8 @@ package com.xmmxjy.common.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 通用接口
  */
@@ -39,6 +41,12 @@ public interface BaseService<T> {
     int delete(Object key);
 
     int updateByPrimaryKey(T entity);
+
+    public List<T> select(T entity);
+
+    public List<T> selectAll();
+
+    String getMaxLocalCode(String s, String parentCode);
 
     //TODO 其他...
 }

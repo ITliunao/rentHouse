@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmmxjy.system.dao.RhRoleMapper" >
+<mapper namespace="com.xmmxjy.system.dao.RoleDao" >
   <resultMap id="BaseResultMap" type="com.xmmxjy.system.entity.RoleEntity" >
     <!--
       WARNING - @mbggenerated
@@ -15,4 +15,11 @@
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="getPermissionList" resultType="String">
+    select permission from rh_function
+    where rh_function.id
+    in (select function_id from rh_role_function where role_id = #{id})
+  </select>
+
 </mapper>

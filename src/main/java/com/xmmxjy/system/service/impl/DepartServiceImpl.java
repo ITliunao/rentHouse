@@ -22,4 +22,8 @@ public class DepartServiceImpl extends BaseServiceImpl<DepartEntity> implements 
 
 	@Autowired
 	private DepartDao departDao;
+
+	public String getMaxLocalCode(String localCodeLength, String parentCode) {
+		return departDao.getMaxLocalCode(localCodeLength, parentCode);
+	}
 }

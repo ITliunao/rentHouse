@@ -5,6 +5,8 @@ import com.xmmxjy.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 /**
  * Created by liuzh on 2014/12/11.
  */
@@ -30,7 +32,17 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return mapper.updateByPrimaryKeySelective(entity);
     }
 
+    public List<T> select(T entity) {
+        return mapper.select(entity);
+    }
 
+    public List<T> selectAll() {
+        return mapper.selectAll();
+    }
+
+    public String getMaxLocalCode(String s, String parentCode){
+        return "";
+    }
 
     //TODO 其他...
 }
