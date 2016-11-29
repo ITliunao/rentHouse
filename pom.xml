@@ -359,6 +359,12 @@
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>${thymeleaf-shiro.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.p3framework</groupId>
+            <artifactId>jeecg-p3-generate</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
