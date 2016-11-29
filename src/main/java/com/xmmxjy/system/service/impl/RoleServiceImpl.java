@@ -7,9 +7,7 @@ import com.xmmxjy.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 描述：角色
@@ -27,14 +25,22 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleEntity> implements Role
 
 	@Override
 	public List<String> getPermissionList(String id) {
-		List<Map<String,Object>> list = roleDao.getPermissionList(id);
-		List<String> pList = new ArrayList<String>();
-		if (list != null && list.size() > 0) {
-			for (Map<String,Object> map : list) {
-				pList.add((String)map.get("permission"));
-			}
+		return roleDao.getPermissionList(id);
+	}
+
+	@Override
+	public void updateRole(String id, List<String> idList) {
+		//删除该权限对应的资源
+		roleDao.deletePermission(id);
+		//新增该权限对应的资源
+		for (int i = 0 ; i < idList.size(); i++) {
+			roleDao.insertPermission(id,idList.get(i));
 		}
-		return pList;
+	}
+
+	@Override
+	public List<String> functionListByRoleId(String id) {
+		return roleDao.functionListByRoleId(id);
 	}
 
 }

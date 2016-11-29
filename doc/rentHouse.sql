@@ -43,10 +43,9 @@ CREATE TABLE rh_role (
 
 DROP TABLE IF EXISTS rh_role_user;
 CREATE TABLE rh_role_user (
-  id varchar(32) NOT NULL,
-  role_id varchar(32) DEFAULT NULL,
-  user_id varchar(32) DEFAULT NULL,
-  PRIMARY KEY (id),
+  role_id varchar(32) NOT NULL,
+  user_id varchar(32) NOT NULL,
+  PRIMARY KEY (role_id,user_id),
   KEY fk_user_role_id (user_id),
   KEY fk_role_user_id (role_id),
   CONSTRAINT fk_role_user_id FOREIGN KEY (role_id) REFERENCES rh_role (id),
@@ -98,10 +97,9 @@ CREATE TABLE rh_function (
 
 DROP TABLE IF EXISTS rh_role_function;
 CREATE TABLE rh_role_function (
-  id varchar(32) NOT NULL,
-  function_id varchar(32) DEFAULT NULL,
-  role_id varchar(32) DEFAULT NULL,
-  PRIMARY KEY (id),
+  function_id varchar(32) NOT NULL,
+  role_id varchar(32) NOT NULL,
+  PRIMARY KEY (function_id,role_id),
   KEY fk_function_role_id (function_id),
   KEY fk_role_function_id (role_id),
   CONSTRAINT fk_function_role_id FOREIGN KEY (function_id) REFERENCES rh_function (id),

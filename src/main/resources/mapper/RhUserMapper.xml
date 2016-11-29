@@ -45,4 +45,11 @@
     SET password = #{password},
     WHERE rh_user.id = #{id};
   </update>-->
+  
+  <select id="findPermissions" resultType="String">
+    select permission from rh_function
+where rh_function.id
+in (select function_id from rh_role_function where role_id
+in (select role_id from rh_user where id = #{id}))
+  </select>
 </mapper>

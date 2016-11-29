@@ -41,7 +41,7 @@ public class FunctionController extends BaseEndController{
     @RequestMapping(value = "/list.do",method = {RequestMethod.GET,RequestMethod.POST})
     public String list(@ModelAttribute FunctionEntity query, HttpServletRequest request, HttpServletResponse response,
                        @RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
-                       @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize, ModelMap model) throws Exception{
+                       @RequestParam(required = false, value = "pageSize", defaultValue = "50") int pageSize, ModelMap model) throws Exception{
         //用了分页组件
         PageHelper.startPage(pageNo, pageSize);
         FunctionEntity function = new FunctionEntity();

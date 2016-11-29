@@ -35,10 +35,16 @@ public class LoginController extends BaseEndController {
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @RequestMapping(value="/login.do" , method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value="/login.do" , method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response, @ModelAttribute UserEntity user, ModelMap model){
+        //Subject currentUser = SecurityUtils.getSubject();
+        //EndUtil.sendEndParams(request,model);
+        return END_PAGE + LOGIN;
+    }
+    @RequestMapping(value="/login.do" , method = RequestMethod.POST)
+    public String loginPost(HttpServletRequest request, HttpServletResponse response, @ModelAttribute UserEntity user, ModelMap model){
         Subject currentUser = SecurityUtils.getSubject();
-        EndUtil.sendEndParams(request,model);
+        //EndUtil.sendEndParams(request,model);
         try {
             if (!currentUser.isAuthenticated()) {
                 UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
@@ -49,8 +55,9 @@ public class LoginController extends BaseEndController {
         }catch (AuthenticationException e) {
             return END_PAGE + LOGIN;
         }
-
     }
+
+
     @RequestMapping( value = "/logout.do",method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         UserEntity user =  (UserEntity) ShiroSessionUtils.getAttribute(ShiroSessionUtils.LOGIN_ATTRIVUTE_NAME);

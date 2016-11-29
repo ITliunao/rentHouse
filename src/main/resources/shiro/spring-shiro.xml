@@ -73,9 +73,9 @@
 	<!-- 安全认证过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
-		<property name="successUrl" value="/index" />
-		<property name="unauthorizedUrl" value="/login?unauthorized"/>
+		<property name="loginUrl" value="/login.do" />
+		<property name="successUrl" value="/" />
+		<property name="unauthorizedUrl" value="/login.do"/>
 		<property name="filters">
 			<map>
 				<entry key="cas" value-ref="casFilter" />
@@ -91,20 +91,12 @@
 	<bean name="shiroFilterChainDefinitions" class="java.lang.String">
 		<constructor-arg>
 			<value>
-				/=anon
-				/index/*=anon
-				/user*=anon
-				/user/*=anon
-				/admin/login=authc
-				/logout=logout
+				/login.do=anon
+				/logout.do=anon
 				/static/** = anon
 				/plug-in-ui/**=anon
-				/**/*.html=anon
 				/getCaptcha=anon
-				/account/get = anon
-				/login.json=anon
-				/monitoring=anon
-				/** = anon
+				/** = user
 			</value>
 		</constructor-arg>
 	</bean>

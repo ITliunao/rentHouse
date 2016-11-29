@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -160,4 +161,21 @@ public class Tools {
 		return sb.substring(0,sb.length()-1);
 	}
 
+	/**
+	 * 逗号分隔的String转化为list
+	 * @param ids
+	 * @return
+	 */
+	public static List<String> commaStringToList(String ids) {
+		List<String> result = new ArrayList<String>();
+		if (Tools.notEmpty(ids)) {
+			for (String id : ids.split(",")) {
+				if (Tools.notEmpty(id)) {
+					result.add(id.trim());
+				}
+			}
+		}
+
+		return result;
+	}
 }

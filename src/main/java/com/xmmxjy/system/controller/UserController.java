@@ -11,7 +11,9 @@ import com.xmmxjy.common.util.AjaxJson;
 import com.xmmxjy.common.util.BeanUtil;
 import com.xmmxjy.common.util.EndUtil;
 import com.xmmxjy.common.util.Tools;
+import com.xmmxjy.system.entity.RoleEntity;
 import com.xmmxjy.system.entity.UserEntity;
+import com.xmmxjy.system.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
@@ -43,6 +45,9 @@ public class UserController extends BaseEndController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RoleService roleService;
 
 
 	/**
@@ -83,6 +88,8 @@ public class UserController extends BaseEndController {
 	@RequestMapping(value = "/toAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
 	public String toAdd(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		EndUtil.sendEndParams(request,model);
+		List<RoleEntity> roleList = roleService.selectAll();
+		model.addAttribute("roleList",roleList);
 		return END_PAGE + CURRENT_PAGE + ADD;
 	}
 
@@ -99,6 +106,8 @@ public class UserController extends BaseEndController {
 		EndUtil.sendEndParams(request,model);
 		UserEntity user = userService.selectByPrimaryKey(id);
 		model.addAttribute("user",user);
+		List<RoleEntity> roleList = roleService.selectAll();
+		model.addAttribute("roleList",roleList);
 		return END_PAGE + CURRENT_PAGE + EDIT;
 	}
 
@@ -118,6 +127,15 @@ public class UserController extends BaseEndController {
 		return END_PAGE + CURRENT_PAGE + DETAIL;
 	}
 
+
+	@RequiresPermissions("system.user.password")
+	@RequestMapping(value = "/toPassword.do",method ={RequestMethod.GET, RequestMethod.POST})
+	public String toPassword(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		EndUtil.sendEndParams(request,model);
+		UserEntity user = userService.selectByPrimaryKey(id);
+		model.addAttribute("user",user);
+		return END_PAGE + CURRENT_PAGE + "password";
+	}
 
 	/**
 	 * 保存方法
@@ -203,7 +221,7 @@ public class UserController extends BaseEndController {
 	 * 修改密码
 	 * @return
 	 */
-	@RequestMapping(params = "doPassword",method ={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/doPassword.do",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public AjaxJson doPassword(@RequestParam(required = true, value = "id" ) String id,
 							   @RequestParam(required = true, value = "password" ) String password,
@@ -237,10 +255,7 @@ public class UserController extends BaseEndController {
 				j.setSuccess(false);
 				return j;
 			}
-			UserEntity user2 = new UserEntity();
-			user2.setId(id);
-			user2.setPassword(newPassword);
-			userService.updateByPrimaryKey(user2);
+			userService.update(id,newPassword);
 			j.setMsg("修改密码成功");
 		} catch (Exception e) {
 			logger.info(e.getMessage());

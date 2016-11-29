@@ -38,7 +38,7 @@
 							</div>-->
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/function/toAdd.do\');'" >新增</button></legend>
+								<legend  class="le"><button type="button" shiro:hasPermission="system.function.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/function/toAdd.do\');'" >新增</button></legend>
 							</div>
 							<table class="table table-striped table-hover table-condensed table-bordered" id="treeTable1">
 									<thead>
@@ -59,9 +59,9 @@
 									<td th:text="${info.icon}">icon</td>
 									<td th:text="${info.functionType}">functionType</td>
 									<td class="last">
-										<!--shiro:hasRole="system.function.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-										<!--shiro:hasRole="system.function.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/function/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-										<!--shiro:hasRole="system.function.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<!--shiro:hasRole="system.function.edit"--><a shiro:hasPermission="system.function.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<!--shiro:hasRole="system.function.delete"--><a shiro:hasPermission="system.function.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/function/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<!--shiro:hasRole="system.function.detail"--><a shiro:hasPermission="system.function.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/function/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
 										</td>
 										</tr>
 								</tbody>

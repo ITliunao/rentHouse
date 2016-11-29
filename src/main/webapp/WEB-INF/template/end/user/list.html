@@ -30,7 +30,7 @@
 							</div>
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/user/toAdd.do\');'" >新增</button></legend>
+								<legend  class="le"><button type="button" shiro:hasPermission="system.user.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/user/toAdd.do\');'" >新增</button></legend>
 							</div>
 							<table class="table table-striped">
 								<thead>
@@ -51,9 +51,11 @@
 									<td th:text="${info.lastLoginTime}">lastLoginTime</td>
 									<td th:text="${info.lastLoginIp}">lastLoginIp</td>
 									<td class="last">
-										<!--shiro:hasRole="system.user.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-										<!--shiro:hasRole="system.user.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/user/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-										<!--shiro:hasRole="system.user.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<a href="javascript:void(0)" shiro:hasPermission="system.user.edit" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<a shiro:hasPermission="system.user.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/user/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<a shiro:hasPermission="system.user.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<a shiro:hasPermission="system.user.password" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/user/toPassword.do?id=' + ${info.id} + '\')'">修改密码</a>
+
 										</td>
 										</tr>
 								</tbody>

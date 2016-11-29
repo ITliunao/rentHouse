@@ -22,4 +22,17 @@
     in (select function_id from rh_role_function where role_id = #{id})
   </select>
 
+  <select id="functionListByRoleId" resultType="String">
+    select function_id from rh_role_function where role_id = #{id}
+  </select>
+
+  <insert id="insertPermission" parameterType="String">
+    insert into rh_role_function (role_id,function_id) VALUE (#{id},#{functionId})
+  </insert>
+
+  <delete id="deletePermission" parameterType="String">
+    delete from rh_role_function where role_id = #{id}
+  </delete>
+
+
 </mapper>

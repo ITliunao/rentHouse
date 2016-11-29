@@ -128,7 +128,9 @@ public class RoleController extends BaseEndController {
 		RoleEntity role = roleService.selectByPrimaryKey(id);
 		model.addAttribute("role",role);
 		List<String> permissionList = roleService.getPermissionList(id);
-		model.addAttribute("permissions",Tools.listToString(permissionList));
+		List<String> functionIdList = roleService.functionListByRoleId(id);
+		model.addAttribute("functionIdList",Tools.listToString(functionIdList));
+		logger.info(" .... " + Tools.listToString(functionIdList));
 		model.addAttribute("permissionList",permissionList);
 		return END_PAGE + CURRENT_PAGE + "assign";
 	}
@@ -185,10 +187,17 @@ public class RoleController extends BaseEndController {
 	 */
 	@RequestMapping(value = "/doAssign.do",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAssign(@RequestParam(required = true, value = "ids" ) String ids){
+	public AjaxJson doAssign(@RequestParam(required = true, value = "ids" ) String ids,String id){
 		AjaxJson j = new AjaxJson();
 		try {
 			logger.info("ids : {}",ids);
+			List<String> idList = Tools.commaStringToList(ids);
+				if (Tools.isListEmpty(idList)){
+					j.setMsg("没有选择数据");
+					j.setSuccess(false);
+					return j;
+				}
+			roleService.updateRole(id,idList);
 			j.setMsg("分配成功");
 		} catch (Exception e) {
 			logger.info(e.getMessage());

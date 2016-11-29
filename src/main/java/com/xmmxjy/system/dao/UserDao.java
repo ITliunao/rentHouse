@@ -1,6 +1,7 @@
 package com.xmmxjy.system.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.xmmxjy.common.mapper.Pagination;
 import com.xmmxjy.system.entity.UserEntity;
@@ -39,4 +40,6 @@ public interface UserDao extends MyMapper<UserEntity> {
 	 * @return
 	 */
     int updatePassword(String id, String password);
+
+	Set<String> findPermissions(String id);
 }

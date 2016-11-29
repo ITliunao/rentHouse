@@ -35,8 +35,8 @@ public class UserServiceImpl  extends BaseServiceImpl<UserEntity> implements Use
 	}
 
 	@Override
-	public Set<String> findPermissions(String username) {
-		return null;
+	public Set<String> findPermissions(String id) {
+		return userDao.findPermissions(id);
 	}
 
 	@Override
@@ -46,7 +46,10 @@ public class UserServiceImpl  extends BaseServiceImpl<UserEntity> implements Use
 
 	@Override
 	public int update(String id, String password) {
-		return userDao.updatePassword(id,password);
+		UserEntity user2 = new UserEntity();
+		user2.setId(id);
+		user2.setPassword(new Md5Hash(password).toString());
+		return userDao.updateByPrimaryKey(user2);
 	}
 
 	@Override

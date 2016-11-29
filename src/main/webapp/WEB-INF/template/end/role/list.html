@@ -31,7 +31,7 @@
 							</div>
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/role/toAdd.do\');'" >新增</button></legend>
+								<legend  class="le"><button type="button" shiro:hasPermission="system.role.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/role/toAdd.do\');'" >新增</button></legend>
 							</div>
 							<table class="table table-striped">
 								<thead>
@@ -44,10 +44,10 @@
 									<td th:text="${info.roleCode}"></td>
 									<td th:text="${info.roleName}"></td>
 									<td class="last">
-										<!--shiro:hasRole="system.user.edit"--><a href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-										<!--shiro:hasRole="system.user.delete"--><a th:onclick="'javascript:delData(\'' + ${basePath} + '/role/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-										<!--shiro:hasRole="system.user.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
-										<!--shiro:hasRole="system.user.detail"--><a th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toAssign.do?id=' + ${info.id} + '\')'">分配权限</a>
+										<a shiro:hasPermission="system.role.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+										<a shiro:hasPermission="system.role.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/role/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+										<a shiro:hasPermission="system.role.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+										<a shiro:hasPermission="system.role.assign" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/role/toAssign.do?id=' + ${info.id} + '\')'">分配权限</a>
 
 									</td>
 								</tr>

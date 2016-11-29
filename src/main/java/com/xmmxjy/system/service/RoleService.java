@@ -20,4 +20,18 @@ public interface RoleService extends BaseService<RoleEntity>{
 	 * @return
 	 */
     public List<String> getPermissionList(String id);
+
+	/**
+	 * 更新权限
+	 * @param id 权限ID
+	 * @param idList 权限对应的资源ID
+	 */
+	public void updateRole(String id, List<String> idList);
+
+	/**
+	 * 根据roleId 查找functionId
+	 * @param id
+	 * @return
+	 */
+    List<String> functionListByRoleId(String id);
 }
