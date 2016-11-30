@@ -108,11 +108,11 @@ CREATE TABLE rh_role_function (
 
 DROP TABLE IF EXISTS rh_dict_type;
 CREATE TABLE rh_dict_type (
-  id varchar(32) NOT NULL,
-  name varchar(50) NOT NULL,
-  code varchar(32) NOT NULL,
-  description varchar(100) DEFAULT NULL,
-    seq int(11) NOT NULL COMMENT '排序，由小到大',
+  id varchar(32) NOT NULL COMMENT '主键',
+  name varchar(50) NOT NULL COMMENT '类型名称',
+  code varchar(32) NOT NULL COMMENT '类型编码',
+  description varchar(100) DEFAULT NULL COMMENT '类型描述',
+  seq int(11) NOT NULL COMMENT '排序，由小到大',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

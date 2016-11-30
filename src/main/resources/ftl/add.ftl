@@ -7,7 +7,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">新增</div>
             <div class="panel-body">
-                <form class="form-horizontal" role="form" id="dailogForm" action="${lower}/add.html" th:action="@{/${lower}/doAdd.do}" method="POST">
+                <form class="form-horizontal" role="form" id="dailogForm" action="${lowerName}/add.html" th:action="@{/${lowerName}/doAdd.do}" method="POST">
                     <input type="hidden" id="btn_sub" class="btn_sub" />
                 <#list columnDatas as item>
                     <#if item.domainPropertyName != 'id'>
@@ -21,7 +21,7 @@
                 </#list>
                     <div class="form-group mno">
                         <div class="col-sm-offset-1 col-sm-6">
-                            <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/${lower}/list.do} +'\');'">返回</button>
+                            <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/${lowerName}/list.do} +'\');'">返回</button>
                             <button type="button" class="btn btn-primary" id="formSubmit">提交</button>
                         </div>
                     </div>

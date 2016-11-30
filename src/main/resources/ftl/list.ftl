@@ -11,15 +11,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">列表</div>
                     <div class="panel-body">
-                        <input name="pageNo" id="pageNo" value="1" th:value="${pageNo}" type="hidden">
-                        <input name="pageSize" id="pageSize" value="10" th:value="${pageSize}" type="hidden">
+                        <input name="pageNo" id="pageNo" value="1" th:value="$!{pageNo}" type="hidden">
+                        <input name="pageSize" id="pageSize" value="10" th:value="$!{pageSize}" type="hidden">
                         <div class="search">
                         <#list columnDatas as item>
                             <#if item.domainPropertyName != 'id'>
                             <div class="form-group col-sm-3">
-                                <label for="roleCode" class="control-label col-sm-3 line34">${item.columnComment}</label>
+                                <label for="${item.domainPropertyName}" class="control-label col-sm-3 line34">${item.columnComment}</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="${item.domainPropertyName}" id="${item.domainPropertyName}" th:value="${query.${item.domainPropertyName}}" class="form-control">
+                                    <input type="text" name="${item.domainPropertyName}" id="${item.domainPropertyName}" th:value="$!{query.${item.domainPropertyName}}" class="form-control">
                                 </div>
                             </div>
                             </#if>
@@ -30,7 +30,7 @@
                         </div>
 
                         <div id="legend">
-                            <legend  class="le"><button type="button" shiro:hasPermission="${package}.${lowerName}.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/${lowerName}/toAdd.do\');'" >新增</button></legend>
+                            <legend  class="le"><button type="button" shiro:hasPermission="${package}.${lowerName}.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + $!{basePath} +'/${lowerName}/toAdd.do\');'" >新增</button></legend>
                         </div>
                         <table class="table table-striped">
                             <thead>
@@ -42,16 +42,16 @@
                             <th>操作</th>
                             </thead>
                             <tbody>
-                            <tr th:each ="info :${list}">
+                            <tr th:each ="info :$!{list}">
                             <#list columnDatas as item>
                                 <#if item.domainPropertyName != 'id'>
-                                    <td th:text="${info.${item.domainPropertyName}}"></td>
+                                    <td th:text="$!{info.${item.domainPropertyName}}"></td>
                                 </#if>
                             </#list>
                                 <td class="last">
-                                    <a shiro:hasPermission="${package}.${lowerName}.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/${lowerName}/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
-                                    <a shiro:hasPermission="${package}.${lowerName}.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/${lowerName}/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
-                                    <a shiro:hasPermission="${package}.${lowerName}.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/${lowerName}/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+                                    <a shiro:hasPermission="${package}.${lowerName}.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + $!{basePath} + '/${lowerName}/toEdit.do?id='+$!{info.id} + '\')'" >编辑</a>
+                                    <a shiro:hasPermission="${package}.${lowerName}.delete" th:onclick="'javascript:delData(\'' + $!{basePath} + '/${lowerName}/doDelete.do?id=' + $!{info.id} + '\')'">删除</a>
+                                    <a shiro:hasPermission="${package}.${lowerName}.detail" th:onclick="'javascript:doUrl(\'' + $!{basePath} + '/${lowerName}/toDetail.do?id=' + $!{info.id} + '\')'">详情</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -69,9 +69,9 @@
 <script type="text/javascript" th:src="@{/plug-in-ui/treetable/jquery.treeTable.min.js}"></script>
 <script type="text/javascript">
     //当前页码
-    var pageNo = [[${pageNo}]];
+    var pageNo = [[$!{pageNo}]];
     //当前页数
-    var pages = [[${pages}]];
+    var pages = [[$!{pages}]];
 
     var visiblePages = pages;
     if (pages >= 10) {

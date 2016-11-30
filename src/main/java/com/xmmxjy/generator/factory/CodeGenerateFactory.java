@@ -7,16 +7,17 @@ import com.xmmxjy.generator.def.CodeResourceUtil;
 import com.xmmxjy.generator.def.FreemarkerEngine;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.VelocityContext;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.VelocityContext;
 
 public class CodeGenerateFactory {
     private static final Log log = LogFactory.getLog(CodeGenerateFactory.class);
@@ -148,6 +149,8 @@ public class CodeGenerateFactory {
             CreateBean e1 = new CreateBean();
             e1.setMysqlInfo(url, username, passWord);
             String className = e1.getTablesNameToClassName(tableName);
+            //移除固定前缀
+            className = className.substring(2,className.length());
             String lowerName = className.substring(0, 1).toLowerCase() + className.substring(1, className.length());
             String tableNameUpper = tableName.toUpperCase();
             String tablesAsName = e1.getTablesASName(tableName);
@@ -155,40 +158,38 @@ public class CodeGenerateFactory {
                 Map pathSrc = e1.getTableCommentMap();
                 codeName = (String)pathSrc.get(tableNameUpper);
             }
-
+            //java代码目录
             String pathSrc1 = CodeResourceUtil.getConfigInfo("path_src");
-            String source_root_package = CodeResourceUtil.getConfigInfo("source_root_package");
-            pathSrc1 = pathSrc1 + File.separator + source_root_package.replace(".", File.separator);
+            //包名(和project组合) 如：com.xmmxjy
             String basePackage = CodeResourceUtil.getConfigInfo("base_package");
+            //包名 如：system
             String projectName = CodeResourceUtil.getConfigInfo("project_name");
             basePackage = basePackage + "." + projectName;
-            String bussiPackage = CodeResourceUtil.getConfigInfo("bussi_package");
+            //代码作者
             String author = CodeResourceUtil.getConfigInfo("author");
+            //目前没有用
             String baseDao = CodeResourceUtil.getConfigInfo("baseDao");
-            String domainPackage = basePackage + "." + bussiPackage + ".entity";
-            String daoPackage = basePackage + "." + bussiPackage + ".dao";
-            String daoImplPackage = basePackage + "." + bussiPackage + ".dao.impl";
-            String servicePackage = basePackage + "." + bussiPackage + ".service";
-            String serviceImplPackage = basePackage + "." + bussiPackage + ".service.impl";
-            String controllerPackage = basePackage + "." + bussiPackage + ".web";
-            String domainQueryPackage = basePackage + "." + bussiPackage + ".vo";
-            String pagePackage = "content." + projectName + "." + bussiPackage;
-            String sqlPackage = basePackage + "." + bussiPackage + ".sql";
-            String domainPath = domainPackage.replace(".", "\\") + "\\" + className + "Entity.java";
-            String daoPath = daoPackage.replace(".", "\\") + "\\" + className + "Dao.java";
-            String daoImplPath = daoImplPackage.replace(".", "\\") + "\\" + className + "DaoImpl.java";
-            String servicePath = servicePackage.replace(".", "\\") + "\\" + className + "Service.java";
-            String serviceImplPath = serviceImplPackage.replace(".", "\\") + "\\" + className + "ServiceImpl.java";
-            String controllerPath = controllerPackage.replace(".", "\\") + "\\" + className + "Controller.java";
-            String domainQueryPath = domainQueryPackage.replace(".", "\\") + "\\" + className + "Vo.java";
-            String pageIndexPath = pagePackage.replace(".", "\\") + "\\" + lowerName + "-list.vm";
-            String pageAddPath = pagePackage.replace(".", "\\") + "\\" + lowerName + "-add.vm";
-            String pageEditPath = pagePackage.replace(".", "\\") + "\\" + lowerName + "-edit.vm";
-            String pageDetailPath = pagePackage.replace(".", "\\") + "\\" + lowerName + "-detail.vm";
-            String sqlConditionPath = sqlPackage.replace(".", "\\") + "\\" + className + "Dao_condition.sql";
-            String sqlGetAllPath = sqlPackage.replace(".", "\\") + "\\" + className + "Dao_getAll.sql";
-            String sqlInsertPath = sqlPackage.replace(".", "\\") + "\\" + className + "Dao_insert.sql";
-            String sqlUpdatePath = sqlPackage.replace(".", "\\") + "\\" + className + "Dao_update.sql";
+            //页面路径
+            String pagePath = CodeResourceUtil.getConfigInfo("page_path");
+            //实体路径
+            String domainPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "entity" + "\\" + className + "Entity.java";
+            //dao路径
+            String daoPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "dao" + "\\" + className + "Dao.java";
+            //service路径
+            String servicePath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "service" + "\\" + className + "Service.java";
+            //serviceImpl实现路径
+            String serviceImplPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "service" + "\\" + "impl" + "\\" + className + "ServiceImpl.java";
+            //控制器路径
+            String controllerPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "contorller" + "\\" + className + "Controller.java";
+            //list页面路径
+            String pageIndexPath = pagePath + "\\" + lowerName + "\\" +"list.html";
+            //add页面路径
+            String pageAddPath = pagePath + "\\" + lowerName + "\\" +"add.html";
+            //修改页面路径
+            String pageEditPath = pagePath + "\\" + lowerName  + "\\" + "edit.html";
+            //详情页面路径
+            String pageDetailPath = pagePath + "\\" + lowerName + "\\" + "detail.html";
+
             String sqlMapperFlag = CodeResourceUtil.getConfigInfo("sqlmap_flag");
             String domainFlag = CodeResourceUtil.getConfigInfo("domain_flag");
             String daoFlag = CodeResourceUtil.getConfigInfo("dao_flag");
@@ -216,15 +217,8 @@ public class CodeGenerateFactory {
             root.put("tableName", tableName);
             root.put("tableNameUpper", tableNameUpper);
             root.put("tablesAsName", tablesAsName);
-            root.put("bussPackage", bussiPackage);
             root.put("projectName", projectName);
-            root.put("domainPackage", domainPackage);
-            root.put("domainQueryPackage", domainQueryPackage);
-            root.put("daoPackage", daoPackage);
-            root.put("daoImplPackage", daoImplPackage);
-            root.put("servicePackage", servicePackage);
-            root.put("serviceImplPackage", serviceImplPackage);
-            root.put("controllerPackage", controllerPackage);
+            root.put("package",projectName);
             root.put("keyType", keyType);
             root.put("nowDate", nowDate);
             root.put("feilds", e1.getBeanFeilds(tableName, className));
@@ -239,46 +233,32 @@ public class CodeGenerateFactory {
             cfg.setDirectoryForTemplateLoading(new File(templateBasePath));
             cfg.setObjectWrapper(new DefaultObjectWrapper());
             if("Y".equals(domainFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "domainClass.ftl", pathSrc1, domainPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "domainClass.ftl", domainPath);
             }
 
             if("Y".equals(daoFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "daoClass.ftl", pathSrc1, daoPath);
-            }
-
-            if("Y".equals(daoImplFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "daoImplClass.ftl", pathSrc1, daoImplPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "daoClass.ftl", daoPath);
             }
 
             if("Y".equals(serviceFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "serviceClass.ftl", pathSrc1, servicePath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "serviceClass.ftl", servicePath);
             }
 
             if("Y".equals(serviceImplFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "serviceImplClass.ftl", pathSrc1, serviceImplPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "serviceImplClass.ftl", serviceImplPath);
             }
 
             if("Y".equals(controllerFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "controllerClass.ftl", pathSrc1, controllerPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "controllerClass.ftl", controllerPath);
             }
 
             if("Y".equals(pageFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "pageIndex.ftl", pathSrc1, pageIndexPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "pageAdd.ftl", pathSrc1, pageAddPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "pageDetail.ftl", pathSrc1, pageDetailPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "pageEdit.ftl", pathSrc1, pageEditPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "list.ftl", pageIndexPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "add.ftl", pageAddPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "detail.ftl", pageDetailPath);
+                FreemarkerEngine.createFileByFTL(cfg, root, "edit.ftl", pageEditPath);
             }
 
-            if("Y".equals(domainQueryFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "domainQueryClass.ftl", pathSrc1, domainQueryPath);
-            }
-
-            if("Y".equals(sqlFlag)) {
-                FreemarkerEngine.createFileByFTL(cfg, root, "minidaoConditionSql.ftl", pathSrc1, sqlConditionPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "minidaoGetAllSql.ftl", pathSrc1, sqlGetAllPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "minidaoInsertSql.ftl", pathSrc1, sqlInsertPath);
-                FreemarkerEngine.createFileByFTL(cfg, root, "minidaoUpdateSql.ftl", pathSrc1, sqlUpdatePath);
-            }
 
             log.info("----------------------------代码生成完毕---------------------------");
             System.out.println("----------------------------代码生成完毕---------------------------");

@@ -9,14 +9,14 @@
             <div class="panel-body">
                 <form class="form-horizontal" role="form" id="dailogForm" action="role/add.html" th:action="@{/${lowerName}/doEdit.do}" method="POST">
                     <input type="hidden" id="btn_sub" class="btn_sub" />
-                    <input type="hidden" th:value="${${lowerName}.id}" name="id"/>
+                    <input type="hidden" th:value="$!{${lowerName}.id}" name="id"/>
 
                 <#list columnDatas as item>
                     <#if item.domainPropertyName != 'id'>
                         <div class="form-group mno">
                             <label for="${item.domainPropertyName}" class="col-sm-2 control-label" style="text-align:left;">${item.columnComment}</label>
                             <div class="col-sm-8">
-                                <input type="text" th:value="${${lowerName}.${item.domainPropertyName}}" name="${item.domainPropertyName}" id="${item.domainPropertyName}" class="form-control" readonly="true" />
+                                <input type="text" th:value="$!{${lowerName}.${item.domainPropertyName}}" name="${item.domainPropertyName}" id="${item.domainPropertyName}" class="form-control" readonly="true" />
                             </div>
                         </div>
                     </#if>
