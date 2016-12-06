@@ -51,7 +51,7 @@
 
     <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-    <table tableName="rh_dict_type" >
+    <table tableName="rh_dict_data" >
     </table>
   </context>
 </generatorConfiguration>

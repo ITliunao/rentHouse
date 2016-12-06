@@ -180,7 +180,7 @@ public class CodeGenerateFactory {
             //serviceImpl实现路径
             String serviceImplPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "service" + "\\" + "impl" + "\\" + className + "ServiceImpl.java";
             //控制器路径
-            String controllerPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "contorller" + "\\" + className + "Controller.java";
+            String controllerPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "controller" + "\\" + className + "Controller.java";
             //list页面路径
             String pageIndexPath = pagePath + "\\" + lowerName + "\\" +"list.html";
             //add页面路径

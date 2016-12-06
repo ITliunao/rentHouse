@@ -3,6 +3,7 @@ package com.xmmxjy.${package}.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
+import javax.persistence.Table;
 
 /**
  * 描述：${codeName}

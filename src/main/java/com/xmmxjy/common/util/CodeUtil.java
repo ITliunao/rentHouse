@@ -50,7 +50,7 @@ public class CodeUtil {
         root.put("columnDatas","");
         createFileByFTL(cfg, root, "domainClass.ftl", "", domainPath);*/
 
-        CodeGenerateFactory.codeGenerateByFTL("rh_dict_type", "数据字典类型", FtlDef.KEY_TYPE_02);
+        CodeGenerateFactory.codeGenerateByFTL("rh_dict_data", "数据字典数据", FtlDef.KEY_TYPE_02);
 
 
     }

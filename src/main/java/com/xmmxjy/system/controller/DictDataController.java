@@ -1,4 +1,4 @@
-package com.xmmxjy.${package}.controller;
+package com.xmmxjy.system.controller;
 
 
 import com.github.pagehelper.PageHelper;
@@ -8,8 +8,8 @@ import com.xmmxjy.common.util.AjaxJson;
 import com.xmmxjy.common.util.BeanUtil;
 import com.xmmxjy.common.util.EndUtil;
 import com.xmmxjy.common.util.Tools;
-import com.xmmxjy.${package}.entity.${className}Entity;
-import com.xmmxjy.${package}.service.${className}Service;
+import com.xmmxjy.system.entity.DictDataEntity;
+import com.xmmxjy.system.service.DictDataService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,34 +29,34 @@ import java.util.List;
 * @version :1.0
 */
 @Controller
-@RequestMapping(value="/${lowerName}")
-public class ${className}Controller extends BaseEndController {
+@RequestMapping(value="/dictData")
+public class DictDataController extends BaseEndController {
 
-private static final Logger logger = LoggerFactory.getLogger(${className}Controller.class);
+private static final Logger logger = LoggerFactory.getLogger(DictDataController.class);
 
-private static final String CURRENT_PAGE = "${lowerName}/";
+private static final String CURRENT_PAGE = "dictData/";
 
 @Autowired
-private ${className}Service ${lowerName}Service;
+private DictDataService dictDataService;
 
 
 /**
 * 列表页面
 * @return
 */
-@RequiresPermissions("${package}.${lowerName}.list")
+@RequiresPermissions("system.dictData.list")
 @RequestMapping(value = "/list.do",method = {RequestMethod.GET,RequestMethod.POST})
-public String list(@ModelAttribute ${className}Entity query, HttpServletRequest request, HttpServletResponse response,
+public String list(@ModelAttribute DictDataEntity query, HttpServletRequest request, HttpServletResponse response,
 @RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,ModelMap model) throws Exception{
 //用了分页组件
     PageHelper.startPage(pageNo, pageSize);
-    ${className}Entity ${lowerName} = new ${className}Entity();
+    DictDataEntity dictData = new DictDataEntity();
     /**
     * 页面会转成空字符串，这里转成null，待后续想其他办法，这里加上转换，性能肯定有影响了
     */
-    BeanUtil.copyBean2Bean(${lowerName},query);
-List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
+    BeanUtil.copyBean2Bean(dictData,query);
+List<DictDataEntity> list = dictDataService.select(dictData);
     logger.info("list : {}",list);
     model.addAttribute("query",query);
     PageInfo page = new PageInfo(list);
@@ -74,7 +74,7 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
     * @param model
     * @return
     */
-    @RequiresPermissions("${package}.${lowerName}.add")
+    @RequiresPermissions("system.dictData.add")
     @RequestMapping(value = "/toAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toAdd(HttpServletRequest request,HttpServletResponse response,ModelMap model){
         EndUtil.sendEndParams(request,model);
@@ -88,12 +88,12 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
     * @param model
     * @return
     */
-    @RequiresPermissions("${package}.${lowerName}.edit")
+    @RequiresPermissions("system.dictData.edit")
     @RequestMapping(value = "/toEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
     EndUtil.sendEndParams(request,model);
-    ${className}Entity ${lowerName} = ${lowerName}Service.selectByPrimaryKey(id);
-        model.addAttribute("${lowerName}",${lowerName});
+    DictDataEntity dictData = dictDataService.selectByPrimaryKey(id);
+        model.addAttribute("dictData",dictData);
         return END_PAGE + CURRENT_PAGE + EDIT;
     }
 
@@ -104,12 +104,12 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
     * @param model
     * @return
     */
-    @RequiresPermissions("${package}.${lowerName}.detail")
+    @RequiresPermissions("system.dictData.detail")
     @RequestMapping(value = "/toDetail.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
         EndUtil.sendEndParams(request,model);
-        ${className}Entity ${lowerName} = ${lowerName}Service.selectByPrimaryKey(id);
-        model.addAttribute("${lowerName}",${lowerName});
+        DictDataEntity dictData = dictDataService.selectByPrimaryKey(id);
+        model.addAttribute("dictData",dictData);
         return END_PAGE + CURRENT_PAGE + DETAIL;
     }
 
@@ -118,17 +118,17 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
 
     /**
     * 保存方法
-    * @param ${lowerName}
+    * @param dictData
     * @return
     */
-    @RequiresPermissions("${package}.${lowerName}.add")
+    @RequiresPermissions("system.dictData.add")
     @RequestMapping(value = "/doAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doAdd(@ModelAttribute("${lowerName}") ${className}Entity ${lowerName}){
+    public AjaxJson doAdd(@ModelAttribute("dictData") DictDataEntity dictData){
         AjaxJson j = new AjaxJson();
         try {
-            ${lowerName}.setId(Tools.get32UUID());
-            ${lowerName}Service.save(${lowerName});
+            dictData.setId(Tools.get32UUID());
+            dictDataService.save(dictData);
             j.setMsg("保存成功");
         } catch (Exception e) {
             logger.info(e.getMessage());
@@ -140,16 +140,16 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
 
     /**
     * 更新方法
-    * @param ${lowerName}
+    * @param dictData
     * @return
     */
-    @RequiresPermissions("${package}.${lowerName}.edit")
+    @RequiresPermissions("system.dictData.edit")
     @RequestMapping(value = "/doEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doEdit(@ModelAttribute("${lowerName}") ${className}Entity ${lowerName}){
+    public AjaxJson doEdit(@ModelAttribute("dictData") DictDataEntity dictData){
     AjaxJson j = new AjaxJson();
         try {
-        int i = ${lowerName}Service.updateByPrimaryKey(${lowerName});
+        int i = dictDataService.updateByPrimaryKey(dictData);
         logger.info("i : ---- {}",i);
             if (i > 0) {
                 j.setMsg("更新成功");
@@ -164,13 +164,13 @@ List<${className}Entity> list = ${lowerName}Service.select(${lowerName});
         return j;
     }
 
-    @RequiresPermissions("${package}.${lowerName}.delete")
+    @RequiresPermissions("system.dictData.delete")
     @RequestMapping(value = "/doDelete.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public AjaxJson doDelete(@RequestParam(required = true, value = "id")String id){
     AjaxJson j = new AjaxJson();
     try {
-        int i= ${lowerName}Service.delete(id);
+        int i= dictDataService.delete(id);
         if (i > 0) {
             j.setMsg("删除成功");
         } else {

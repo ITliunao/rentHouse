@@ -111,7 +111,7 @@ public class CreateBean {
         return map;
     }
 
-    public List<org.jeecgframework.p3.cg.ColumnData> getColumnDatas(String tableName) throws SQLException {
+    public List<ColumnData> getColumnDatas(String tableName) throws SQLException {
         String SQLColumns = "select column_name ,data_type,column_comment,0,0,character_maximum_length,is_nullable nullable,COLUMN_KEY from information_schema.columns where table_name =  \'" + tableName + "\' " + "and table_schema =  \'" + CodeResourceUtil.DATABASE_NAME + "\'";
         Connection con = this.getConnection();
         PreparedStatement ps = con.prepareStatement(SQLColumns);
@@ -132,7 +132,7 @@ public class CreateBean {
             String dataType = this.getType(type, precision, scale);
             String domainPropertyName = this.getcolumnNameToDomainPropertyName(name);
             String jdbcType = this.getJdbcType(type, precision, scale);
-            org.jeecgframework.p3.cg.ColumnData cd = new org.jeecgframework.p3.cg.ColumnData();
+            ColumnData cd = new ColumnData();
             cd.setColumnName(name);
             cd.setDataType(dataType);
             cd.setJdbcType(jdbcType);
@@ -160,13 +160,13 @@ public class CreateBean {
         return columnList;
     }
 
-    public List<org.jeecgframework.p3.cg.ColumnData> getColumnKeyDatas(List<org.jeecgframework.p3.cg.ColumnData> columnList) {
+    public List<ColumnData> getColumnKeyDatas(List<ColumnData> columnList) {
         ArrayList columnKeyList = new ArrayList();
         if(columnList != null && columnList.size() > 0) {
             Iterator var4 = columnList.iterator();
 
             while(var4.hasNext()) {
-                org.jeecgframework.p3.cg.ColumnData column = (org.jeecgframework.p3.cg.ColumnData)var4.next();
+                ColumnData column = (ColumnData)var4.next();
                 if("PRI".equals(column.getColumnKey())) {
                     columnKeyList.add(column);
                 }
@@ -176,13 +176,13 @@ public class CreateBean {
         return columnKeyList;
     }
 
-    public String getColumnKeyParam(List<org.jeecgframework.p3.cg.ColumnData> columnList) {
+    public String getColumnKeyParam(List<ColumnData> columnList) {
         StringBuffer sb = new StringBuffer("");
         if(columnList != null && columnList.size() > 0) {
             Iterator var4 = columnList.iterator();
 
             while(var4.hasNext()) {
-                org.jeecgframework.p3.cg.ColumnData str = (org.jeecgframework.p3.cg.ColumnData)var4.next();
+                ColumnData str = (ColumnData)var4.next();
                 sb.append(str.getDataType()).append(" ").append(str.getDomainPropertyName()).append(",");
             }
         }
@@ -195,13 +195,13 @@ public class CreateBean {
         return str1;
     }
 
-    public String getColumnKeyUseParam(List<org.jeecgframework.p3.cg.ColumnData> columnList) {
+    public String getColumnKeyUseParam(List<ColumnData> columnList) {
         StringBuffer sb = new StringBuffer("");
         if(columnList != null && columnList.size() > 0) {
             Iterator var4 = columnList.iterator();
 
             while(var4.hasNext()) {
-                org.jeecgframework.p3.cg.ColumnData str = (org.jeecgframework.p3.cg.ColumnData)var4.next();
+                ColumnData str = (ColumnData)var4.next();
                 sb.append(str.getDomainPropertyName()).append(",");
             }
         }
@@ -221,7 +221,7 @@ public class CreateBean {
         Iterator var7 = dataList.iterator();
 
         while(var7.hasNext()) {
-            org.jeecgframework.p3.cg.ColumnData d = (org.jeecgframework.p3.cg.ColumnData)var7.next();
+            ColumnData d = (ColumnData)var7.next();
             String name = d.getDomainPropertyName();
             String type = d.getDataType();
             String comment = d.getColumnComment();
@@ -249,7 +249,7 @@ public class CreateBean {
         Iterator var7 = dataList.iterator();
 
         while(var7.hasNext()) {
-            org.jeecgframework.p3.cg.ColumnData d = (org.jeecgframework.p3.cg.ColumnData)var7.next();
+            ColumnData d = (ColumnData)var7.next();
             String name = d.getDomainPropertyName();
             String type = d.getDataType();
             String comment = d.getColumnComment();
@@ -510,13 +510,13 @@ public class CreateBean {
         return var6;
     }
 
-    public String getUpdateSelectiveSql(String tableName, List<org.jeecgframework.p3.cg.ColumnData> columnList) throws SQLException {
+    public String getUpdateSelectiveSql(String tableName, List<ColumnData> columnList) throws SQLException {
         StringBuffer sb = new StringBuffer();
-        org.jeecgframework.p3.cg.ColumnData cd = (org.jeecgframework.p3.cg.ColumnData)columnList.get(0);
+        ColumnData cd = (ColumnData)columnList.get(0);
         sb.append("\t<trim  suffixOverrides=\",\" >\n");
 
         for(int update = 1; update < columnList.size(); ++update) {
-            org.jeecgframework.p3.cg.ColumnData data = (org.jeecgframework.p3.cg.ColumnData)columnList.get(update);
+            ColumnData data = (ColumnData)columnList.get(update);
             String columnName = data.getColumnName();
             sb.append("\t<if test=\"").append(columnName).append(" != null ");
             if("String" == data.getDataType()) {
@@ -533,12 +533,12 @@ public class CreateBean {
         return var8;
     }
 
-    public String getColumnSplit(List<org.jeecgframework.p3.cg.ColumnData> columnList) throws SQLException {
+    public String getColumnSplit(List<ColumnData> columnList) throws SQLException {
         StringBuffer commonColumns = new StringBuffer();
         Iterator var4 = columnList.iterator();
 
         while(var4.hasNext()) {
-            org.jeecgframework.p3.cg.ColumnData data = (org.jeecgframework.p3.cg.ColumnData)var4.next();
+            ColumnData data = (ColumnData)var4.next();
             commonColumns.append(data.getColumnName() + "|");
         }
 

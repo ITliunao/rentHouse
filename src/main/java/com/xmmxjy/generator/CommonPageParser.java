@@ -16,7 +16,7 @@ import java.util.Properties;
 public class CommonPageParser {
     private static VelocityEngine ve;
     private static final String CONTENT_ENCODING = "UTF-8";
-    private static final Log log = LogFactory.getLog(org.jeecgframework.p3.cg.CommonPageParser.class);
+    private static final Log log = LogFactory.getLog(CommonPageParser.class);
     private static boolean isReplace = true;
 
     static {

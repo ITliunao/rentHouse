@@ -12,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jeecgframework.p3.cg.def.CodeResourceUtil;
 
 public class FreemarkerEngine {
     private static final Log log = LogFactory.getLog(FreemarkerEngine.class);
