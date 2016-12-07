@@ -26,25 +26,15 @@
                                     <input type="text" name="code" id="code" th:value="${query.code}" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group col-sm-3">
-                                <label for="description" class="control-label col-sm-3 line34">类型描述</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="description" id="description" th:value="${query.description}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="seq" class="control-label col-sm-3 line34">排序，由小到大</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="seq" id="seq" th:value="${query.seq}" class="form-control">
-                                </div>
-                            </div>
-
                             <button type="submit" class="btn btn-primary">搜  索</button>
                             <div class="clearfix"></div>
                         </div>
 
                         <div id="legend">
-                            <legend  class="le"><button type="button" shiro:hasPermission="system.dictType.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/dictType/toAdd.do\');'" >新增</button></legend>
+                            <legend  class="le">
+                                <button type="button" shiro:hasPermission="system.dictType.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/dictType/toAdd.do\');'" >新增</button>
+
+                            </legend>
                         </div>
                         <table class="table table-striped">
                             <thead>
@@ -64,6 +54,8 @@
                                     <a shiro:hasPermission="system.dictType.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictType/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
                                     <a shiro:hasPermission="system.dictType.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/dictType/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
                                     <a shiro:hasPermission="system.dictType.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictType/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+                                    <a shiro:hasPermission="system.dictData.list" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictData/list.do?dictTypeId=' + ${info.id} + '\')'">明细</a>
+
                                 </td>
                             </tr>
                             </tbody>

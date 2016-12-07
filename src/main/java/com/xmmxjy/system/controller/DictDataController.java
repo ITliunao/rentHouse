@@ -49,14 +49,15 @@ private DictDataService dictDataService;
 public String list(@ModelAttribute DictDataEntity query, HttpServletRequest request, HttpServletResponse response,
 @RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,ModelMap model) throws Exception{
-//用了分页组件
+
+    //用了分页组件
     PageHelper.startPage(pageNo, pageSize);
     DictDataEntity dictData = new DictDataEntity();
     /**
     * 页面会转成空字符串，这里转成null，待后续想其他办法，这里加上转换，性能肯定有影响了
     */
     BeanUtil.copyBean2Bean(dictData,query);
-List<DictDataEntity> list = dictDataService.select(dictData);
+    List<DictDataEntity> list = dictDataService.select(dictData);
     logger.info("list : {}",list);
     model.addAttribute("query",query);
     PageInfo page = new PageInfo(list);
@@ -78,6 +79,7 @@ List<DictDataEntity> list = dictDataService.select(dictData);
     @RequestMapping(value = "/toAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toAdd(HttpServletRequest request,HttpServletResponse response,ModelMap model){
         EndUtil.sendEndParams(request,model);
+        model.addAttribute("dictTypeId",request.getParameter("dictTypeId"));
         return END_PAGE + CURRENT_PAGE + ADD;
     }
 
@@ -91,8 +93,8 @@ List<DictDataEntity> list = dictDataService.select(dictData);
     @RequiresPermissions("system.dictData.edit")
     @RequestMapping(value = "/toEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
-    EndUtil.sendEndParams(request,model);
-    DictDataEntity dictData = dictDataService.selectByPrimaryKey(id);
+        EndUtil.sendEndParams(request,model);
+        DictDataEntity dictData = dictDataService.selectByPrimaryKey(id);
         model.addAttribute("dictData",dictData);
         return END_PAGE + CURRENT_PAGE + EDIT;
     }

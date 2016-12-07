@@ -119,7 +119,7 @@ CREATE TABLE rh_dict_type (
 
 DROP TABLE IF EXISTS rh_dict_data;
 CREATE TABLE rh_dict_data (
-  id varchar(32) NOT NULL,
+  id varchar(32) NOT NULL COMMENT '主键',
   name varchar(32) NOT NULL COMMENT '名称',
   value varchar(255) NOT NULL COMMENT '对应的值',
   seq int(11) NOT NULL COMMENT '排序，由小到大',
@@ -129,8 +129,8 @@ CREATE TABLE rh_dict_data (
   update_date datetime DEFAULT NULL COMMENT '修改时间',
   create_date datetime DEFAULT NULL COMMENT '创建时间',
   update_name varchar(32) DEFAULT NULL COMMENT '修改人',
-  dict_type_id int(11) NOT NULL COMMENT '字典类型ID',
-  PRIMARY KEY (`id`),
+  dict_type_id varchar(32) NOT NULL COMMENT '字典类型ID',
+  PRIMARY KEY (id),
   KEY fk_dict_type_id (dict_type_id),
   CONSTRAINT fk_dict_type_id FOREIGN KEY (dict_type_id) REFERENCES rh_dict_type (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

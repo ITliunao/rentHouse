@@ -22,9 +22,9 @@ function remoteUrl(url,title){
 	$('#addOrUpdateModal').modal({show:true,backdrop:false}); 
 } 
 
-function doUrl(url){ 
+function doUrl(url){
 	location.href=url;
-} 
+}
 
 function dialogDiv(modalId,title){ 
  	$('#'+modalId+'Label').html(title);

@@ -29,51 +29,11 @@
                                     <input type="text" th:value="${dictData.seq}" name="seq" id="seq" class="form-control"/>
                                 </div>
                             </div>
-                            <div class="form-group mno">
-                                <label for="createBy" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.createBy}" name="createBy" id="createBy" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="createName" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.createName}" name="createName" id="createName" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="updateBy" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.updateBy}" name="updateBy" id="updateBy" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="updateDate" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.updateDate}" name="updateDate" id="updateDate" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="createDate" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.createDate}" name="createDate" id="createDate" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="updateName" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.updateName}" name="updateName" id="updateName" class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group mno">
-                                <label for="dictTypeId" class="col-sm-2 control-label" style="text-align:left;">字典类型ID</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:value="${dictData.dictTypeId}" name="dictTypeId" id="dictTypeId" class="form-control"/>
-                                </div>
-                            </div>
+
+                    <input type="hidden" th:value="${dictData.dictTypeId}" name="dictTypeId" id="dictTypeId" class="form-control"/>
                     <div class="form-group mno">
                         <div class="col-sm-offset-1 col-sm-6">
-                            <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/dictData/list.do} +'\');'">返回</button>
+                            <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/dictData/list.do(dictTypeId=${dictTypeId})} +'\');'">返回</button>
                             <button type="button" class="btn btn-primary" id="formSubmit">提交</button>
                         </div>
                     </div>

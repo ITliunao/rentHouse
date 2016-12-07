@@ -15,6 +15,6 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_name" property="updateName" jdbcType="VARCHAR" />
-    <result column="dict_type_id" property="dictTypeId" jdbcType="INTEGER" />
+    <result column="dict_type_id" property="dictTypeId" jdbcType="VARCHAR" />
   </resultMap>
 </mapper>

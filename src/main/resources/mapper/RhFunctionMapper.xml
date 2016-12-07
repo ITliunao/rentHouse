@@ -8,7 +8,7 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="functionlevel" property="functionlevel" jdbcType="SMALLINT" />
     <result column="functionname" property="functionname" jdbcType="VARCHAR" />
-    <result column="functionorder" property="functionorder" jdbcType="VARCHAR" />
+    <result column="functionorder" property="functionorder" jdbcType="SMALLINT" />
     <result column="functionurl" property="functionurl" jdbcType="VARCHAR" />
     <result column="parent_function_id" property="parentFunctionId" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
