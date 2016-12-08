@@ -50,7 +50,7 @@ public class LoginController extends BaseEndController {
                 UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
                 currentUser.login(token);
             }
-            model.addAttribute("user", ShiroSessionUtils.getAttribute(ShiroSessionUtils.LOGIN_ATTRIVUTE_NAME));
+            model.addAttribute(ShiroSessionUtils.LOGIN_ATTRIVUTE_NAME, ShiroSessionUtils.getAttribute(ShiroSessionUtils.LOGIN_ATTRIVUTE_NAME));
             return "redirect:/";
         }catch (AuthenticationException e) {
             return END_PAGE + LOGIN;
@@ -59,7 +59,7 @@ public class LoginController extends BaseEndController {
 
 
     @RequestMapping( value = "/logout.do",method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response,ModelMap model) {
         UserEntity user =  (UserEntity) ShiroSessionUtils.getAttribute(ShiroSessionUtils.LOGIN_ATTRIVUTE_NAME);
         try {
             Subject subject = SecurityUtils.getSubject();
@@ -74,7 +74,9 @@ public class LoginController extends BaseEndController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return END_PAGE + LOGIN;
+
+        return "redirect:/login.do";
+
     }
 
 

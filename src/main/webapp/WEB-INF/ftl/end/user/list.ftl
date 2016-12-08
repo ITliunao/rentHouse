@@ -51,10 +51,10 @@
 									<td>${info.lastLoginTime!}</td>
 									<td>${info.lastLoginIp!}</td>
 									<td class="last">
-										<a href="javascript:void(0)" onclick="javascript:doUrl('${basePath}/user/toEdit.do?id=${info.id}')" >编辑</a>
-										<a onclick="javascript:delData('${basePath}/user/doDelete.do?id=${info.id}')">删除</a>
-										<a onclick="javascript:doUrl('${basePath}/user/toDetail.do?id=${info.id}')">详情</a>
-										<a onclick="javascript:doUrl('${basePath}/user/toPassword.do?id=${info.id}')">修改密码</a>
+									<@shiro.hasPermission name="system.user.edit"><a href="javascript:void(0)" onclick="javascript:doUrl('${basePath}/user/toEdit.do?id=${info.id}')" >编辑</a></@shiro.hasPermission>
+									<@shiro.hasPermission name="system.user.delete">  <a onclick="javascript:delData('${basePath}/user/doDelete.do?id=${info.id}')">删除</a></@shiro.hasPermission>
+									<@shiro.hasPermission name="system.user.detail">	<a onclick="javascript:doUrl('${basePath}/user/toDetail.do?id=${info.id}')">详情</a></@shiro.hasPermission>
+									<@shiro.hasPermission name="system.user.password">	<a onclick="javascript:doUrl('${basePath}/user/toPassword.do?id=${info.id}')">修改密码</a></@shiro.hasPermission>
 
 										</td>
 

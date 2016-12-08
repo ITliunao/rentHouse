@@ -33,7 +33,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="login.html"  href="${basePath}/logout.do"  class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i></a>
+            <a href="${basePath}/logout.do"  class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i></a>
         </nav></div>
     <div class="row J_mainContent" id="content-main">
         <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${basePath}/home.do" frameborder="0" data-id="${basePath}/home.do" seamless=""></iframe>

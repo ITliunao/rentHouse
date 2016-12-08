@@ -25,8 +25,8 @@
 						<label for="roleId" class="col-sm-2 control-label" style="text-align:left;">角色ID</label>
 						<div class="col-sm-8">
 							<select id="roleId" class="form-control" name="roleId">
-								<#list r as roleList>
-									<option value="${r.id}" <#if ${r.id == user.roleId}>selected</#if> >${r.roleName}</option>
+								<#list roleList as r>
+									<option value="${r.id}" <#if r.id == user.roleId>selected</#if> >${r.roleName}</option>
 								</#list>
 							</select>
 						</div>
@@ -46,7 +46,7 @@
 					<div class="form-group mno">
 						<label for="birthday" class="col-sm-2 control-label" style="text-align:left;">生日</label>
 						<div class="col-sm-8">
-							<input type="text" name="birthday" id="birthday" value="${#dates.format(user.birthday,'yy-MMMM-dd')}" class="form-control"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('${basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" />
+							<input type="text" name="birthday" id="birthday" value="${(user.birthday?string('yy-MMMM-dd'))!''}" class="form-control"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('${basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" />
 						</div>
 					</div>
 					<div class="form-group mno">
@@ -94,7 +94,7 @@
 					</div>
 					<div class="form-group mno">
 						<div class="col-sm-offset-1 col-sm-6">
-							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('${basePath}/user/list.do}');">返回</button>
+							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('${basePath}/user/list.do');">返回</button>
 							<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
 						</div>
 					</div>
@@ -105,5 +105,5 @@
 </div>
 </body>
 </html>
-<script type="text/javascript" src="${base}/plug-in-ui/project/js/Validform_v5.3.2.js"></script>
-<script type="text/javascript" src="${base}/plug-in-ui/project/js/forminit.p3.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/project/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/project/js/forminit.p3.js"></script>

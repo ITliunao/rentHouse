@@ -7,7 +7,7 @@ import org.apache.shiro.subject.Subject;
 
 public class ShiroSessionUtils {
 
-	public static final String LOGIN_ATTRIVUTE_NAME = "user";
+	public static final String LOGIN_ATTRIVUTE_NAME = "currentUser";
 
 	public static void setAttribute(Object key, Object value) {
 		Subject account = SecurityUtils.getSubject();

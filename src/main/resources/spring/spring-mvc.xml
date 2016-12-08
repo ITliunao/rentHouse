@@ -90,8 +90,8 @@
     </bean>-->
 
     <!-- freemarker的配置 -->
-    <bean id="freemarkerConfigurer"
-          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <!--<bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+    <bean id="freemarkerConfigurer" class="com.xmmxjy.common.shiro.freemarker.ShiroTagFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl/" />
         <property name="defaultEncoding" value="utf-8" />
         <property name="freemarkerSettings">
