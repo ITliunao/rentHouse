@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html><head th:replace="end/include/head">
+<body style='overflow:scroll;overflow-x:hidden'>
+<div class="container bs-docs-container" style="width:100%;">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">修改</div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" id="dailogForm" action="function/add.html" th:action="@{/function/doEdit.do}" method="POST">
+					<input type="hidden" id="btn_sub" class="btn_sub" />
+					<input type="hidden" th:value="${function.id}" name="id"/>
+					<div class="form-group mno">
+						<label for="functionlevel" class="col-sm-2 control-label" style="text-align:left;">菜单级别</label>
+						<div class="col-sm-8">
+							<select name="functionlevel" id="functionlevel"  class="form-control" placeholder="菜单级别">
+								<option value="1" th:selected="${function.functionlevel==1}" th:value="${function.functionlevel}">一级菜单</option>
+								<option value="2" th:selected="true">二级菜单</option>
+								<option value="3" th:selected="${function.functionlevel=='3'}">按钮</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="functionname" class="col-sm-2 control-label" style="text-align:left;">菜单名称</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.functionname}" name="functionname" id="functionname" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="functionorder" class="col-sm-2 control-label" style="text-align:left;">菜单顺序</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.functionorder}" name="functionorder" id="functionorder" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="functionurl" class="col-sm-2 control-label" style="text-align:left;">菜单地址</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.functionurl}" name="functionurl" id="functionurl" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="permission" class="col-sm-2 control-label" style="text-align:left;">菜单权限</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.permission}" name="permission" id="permission" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="parentFunctionId" class="col-sm-2 control-label" style="text-align:left;">父菜单</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${parentFunctionName}" name="parentFunctionId" id="pId" class="form-control" readonly="true" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="icon" class="col-sm-2 control-label" style="text-align:left;">图标的css样式</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.icon}" name="icon" id="icon" class="form-control" readonly="true" />
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="functionType" class="col-sm-2 control-label" style="text-align:left;">菜单类型</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.functionType}" name="functionType" id="functionType" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createBy" class="col-sm-2 control-label" style="text-align:left;">创建人id</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.createBy}" name="createBy" id="createBy" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createName" class="col-sm-2 control-label" style="text-align:left;">创建人</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.createName}" name="createName" id="createName" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateBy" class="col-sm-2 control-label" style="text-align:left;">修改人id</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.updateBy}" name="updateBy" id="updateBy" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateDate" class="col-sm-2 control-label" style="text-align:left;">修改时间</label>
+						<div class="col-sm-8">
+							<input type="text"  name="updateDate" id="updateDate" th:value="${#dates.format(function.updateDate, 'yyyy-MM-dd HH:mm:ss SSS')}" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="createDate" class="col-sm-2 control-label" style="text-align:left;">创建时间</label>
+						<div class="col-sm-8">
+							<input type="text" name="createDate" id="createDate" th:value="${#dates.format(function.createDate, 'yyyy-MM-dd HH:mm:ss SSS')}" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   th:style="'background: url(' + @{/plug-in-ui/images/datetime.png} +') no-repeat scroll right center transparent;'" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<label for="updateName" class="col-sm-2 control-label" style="text-align:left;">修改人</label>
+						<div class="col-sm-8">
+							<input type="text" th:value="${function.updateName}" name="updateName" id="updateName" class="form-control" readonly="true"/>
+						</div>
+					</div>
+					<div class="form-group mno">
+						<div class="col-sm-offset-1 col-sm-6">
+							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/function/list.do} +'\');'">返回</button>
+							<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/Validform_v5.3.2.js}"></script>
+<script type="text/javascript" th:src="@{/plug-in-ui/project/js/forminit.p3.js}"></script>

@@ -96,7 +96,7 @@
 				/static/** = anon
 				/plug-in-ui/**=anon
 				/getCaptcha=anon
-				/** = user
+				/** = anon
 			</value>
 		</constructor-arg>
 	</bean>

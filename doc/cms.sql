@@ -56,7 +56,7 @@ create table rh_channel_province (
 
 -- 具体的内容
 -- ----------------------------
-DROP TABLE IF EXISTS rh_content_attribute`;
+DROP TABLE IF EXISTS rh_content_attribute;
 CREATE TABLE rh_content_attribute (
   content_id bigint(20) NOT NULL,
   source varchar(50) default NULL COMMENT '内容来源',

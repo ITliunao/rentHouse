@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html><head th:include="end/include/head">
+</head>
+<link th:href="@{/plug-in-ui/treetable/default/treeTable.css}" rel="stylesheet" type="text/css" />
+<body style='overflow:scroll;overflow-x:hidden'>
+<div class="container bs-docs-container" style="width:100%;">
+    <div class="row">
+        <form role="form" class="form-inline" action="dictType/list.html" th:action="@{/dictType/list.do}" method="post"  id="formSubmit">
+            <div  class="col-md-10" style="width:100%">
+                <div class="panel panel-default">
+                    <div class="panel-heading">列表</div>
+                    <div class="panel-body">
+                        <input name="pageNo" id="pageNo" value="1" th:value="${pageNo}" type="hidden">
+                        <input name="pageSize" id="pageSize" value="10" th:value="${pageSize}" type="hidden">
+                        <div class="search">
+                            <div class="form-group col-sm-3">
+                                <label for="name" class="control-label col-sm-3 line34">类型名称</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="name" id="name" th:value="${query.name}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="code" class="control-label col-sm-3 line34">类型编码</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="code" id="code" th:value="${query.code}" class="form-control">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">搜  索</button>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div id="legend">
+                            <legend  class="le">
+                                <button type="button" shiro:hasPermission="system.dictType.add" class="btn btn-primary" th:onclick="'javascript:doUrl(\'' + ${basePath} +'/dictType/toAdd.do\');'" >新增</button>
+
+                            </legend>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                    <th>类型名称</th>
+                                    <th>类型编码</th>
+                                    <th>类型描述</th>
+                                    <th>排序，由小到大</th>
+                            <th>操作</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each ="info :${list}">
+                                    <td th:text="${info.name}"></td>
+                                    <td th:text="${info.code}"></td>
+                                    <td th:text="${info.description}"></td>
+                                    <td th:text="${info.seq}"></td>
+                                <td class="last">
+                                    <a shiro:hasPermission="system.dictType.edit" href="javascript:void(0)" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictType/toEdit.do?id='+${info.id} + '\')'" >编辑</a>
+                                    <a shiro:hasPermission="system.dictType.delete" th:onclick="'javascript:delData(\'' + ${basePath} + '/dictType/doDelete.do?id=' + ${info.id} + '\')'">删除</a>
+                                    <a shiro:hasPermission="system.dictType.detail" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictType/toDetail.do?id=' + ${info.id} + '\')'">详情</a>
+                                    <a shiro:hasPermission="system.dictData.list" th:onclick="'javascript:doUrl(\'' + ${basePath} + '/dictData/list.do?dictTypeId=' + ${info.id} + '\')'">明细</a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <ul class="pagination" id="pagination1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/plug-in-ui/treetable/jquery.treeTable.min.js}"></script>
+<script type="text/javascript">
+    //当前页码
+    var pageNo = [[${pageNo}]];
+    //当前页数
+    var pages = [[${pages}]];
+
+    var visiblePages = pages;
+    if (pages >= 10) {
+        visiblePages = 10;
+    }
+
+    $.jqPaginator('#pagination1', {
+        totalPages: pages,
+        visiblePages: visiblePages,
+        currentPage: pageNo,
+        prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+        next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+        first: '<li class="next"><a href="javascript:;">首页</a></li>',
+        last: '<li class="next"><a href="javascript:;">末页</a></li>',
+        onPageChange: function (num, type) {
+            console.log("num : " + num);
+            console.log("type : " + type);
+            if (type != "init") {
+                //$('#p1').text(type + '：' + num);
+                document.getElementById('pageNo').value = num;
+                document.getElementById('formSubmit').submit();
+            }
+        }
+    });
+    $(function(){
+        var option = {
+            theme:'default',
+            expandLevel : 3,
+            beforeExpand : function($treeTable, id) {
+            },
+            onSelect : function($treeTable, id) {
+                window.console && console.log('onSelect:' + id);
+            }
+
+        };
+        $('#treeTable1').treeTable(option);
+    });
+</script>
+</html>

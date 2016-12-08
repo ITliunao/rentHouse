@@ -37,6 +37,7 @@ public class IndexController {
      */
     @RequestMapping(value = "/home.do",method = {RequestMethod.GET,RequestMethod.POST})
     public String home(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+        EndUtil.sendEndParams(request,model);
         return "end/include/home";
     }
 
