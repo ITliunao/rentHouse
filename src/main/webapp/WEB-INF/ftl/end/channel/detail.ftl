@@ -11,9 +11,9 @@
                     <input type="hidden" id="btn_sub" class="btn_sub" />
                     <input type="hidden" value="${channel.id}" name="id"/>
                     <div class="form-group mno">
-                        <label for="parentId" class="col-sm-2 control-label" style="text-align:left;">父栏目ID</label>
+                        <label for="parentId" class="col-sm-2 control-label" style="text-align:left;">父栏目</label>
                         <div class="col-sm-8">
-                            <input type="text" value="${channel.parentId!}" name="parentId" id="parentId" class="form-control" readonly="true"/>
+                            <input type="text" value="${parentName!}" name="parentId" id="parentId" class="form-control" readonly="true"/>
                         </div>
                     </div>
                     <div class="form-group mno">

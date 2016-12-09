@@ -52,7 +52,7 @@ public class CodeUtil {
         createFileByFTL(cfg, root, "domainClass.ftl", "", domainPath);*/
 
         //CodeGenerateFactory.codeGenerateByFTL("rh_dict_data", "数据字典数据", FtlDef.KEY_TYPE_02);
-        CodeGenerateFactory.codeGenerateByVM2("rh_channel","栏目",FtlDef.KEY_TYPE_02);
+        CodeGenerateFactory.codeGenerateByVM2("rh_content_attribute","内容文本",FtlDef.KEY_TYPE_02);
 
     }
 

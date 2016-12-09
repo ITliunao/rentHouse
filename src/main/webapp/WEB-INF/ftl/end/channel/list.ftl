@@ -17,7 +17,7 @@
 
         <div  class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">列表</div>
+                    <div class="panel-heading">栏目列表</div>
                     <div class="panel-body">
                         <input name="pageNo" id="pageNo" value="${pageNo}" type="hidden">
                         <input name="pageSize" id="pageSize" th:value="${pageSize}" type="hidden">
