@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50155
 File Encoding         : 65001
 
-Date: 2016-12-09 18:55:02
+Date: 2016-12-09 19:46:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -19,16 +19,16 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `rh_channel`;
 CREATE TABLE `rh_channel` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '涓婚敭',
-  `parent_id` int(11) DEFAULT NULL COMMENT '鐖舵爮鐩甀D',
-  `name` varchar(50) NOT NULL COMMENT '鏍忕洰鍚嶇О',
-  `type` int(11) DEFAULT NULL COMMENT '绫诲瀷',
-  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '椤哄簭',
-  `is_display` tinyint(11) DEFAULT '1' COMMENT '鏄惁鏄剧ず',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `parent_id` int(11) DEFAULT NULL COMMENT '父栏目ID',
+  `name` varchar(50) NOT NULL COMMENT '栏目名称',
+  `type` int(11) DEFAULT NULL COMMENT '栏目类型',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `is_display` tinyint(11) DEFAULT '1' COMMENT '是否显示',
   PRIMARY KEY (`id`),
   KEY `fk_channel_parent` (`parent_id`),
   CONSTRAINT `fk_channel_parent` FOREIGN KEY (`parent_id`) REFERENCES `rh_channel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='鏍忕洰';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='栏目';
 
 -- ----------------------------
 -- Records of rh_channel
