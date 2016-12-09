@@ -47,6 +47,7 @@
 
     <mvc:resources mapping="/static/**" location="/static/" cache-period="864000"/>
     <mvc:resources mapping="/plug-in-ui/**" location="/plug-in-ui/" cache-period="864000"/>
+    <mvc:resources mapping="/ueditor/**" location="/ueditor/" />
 
   <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
     <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
@@ -78,8 +79,8 @@
     </bean>
        <!--文件上传 -->
     <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="100000"/>
+          class="com.xmmxjy.common.other.CommonsMultiparResolver">
+        <property name="maxUploadSize" value="5000000"/>
     </bean>
 
     <!-- 支持jsp -->

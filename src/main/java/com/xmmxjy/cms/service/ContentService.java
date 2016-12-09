@@ -12,4 +12,5 @@ import java.util.List;
 public interface ContentService extends BaseService<ContentEntity>{
 
 
+    void save(ContentEntity content, String text);
 }

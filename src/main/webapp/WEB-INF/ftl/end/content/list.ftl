@@ -5,10 +5,18 @@
 <body style='overflow:scroll;overflow-x:hidden'>
 <div class="container bs-docs-container" style="width:100%;">
     <div class="row">
+        <div class="col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">列表</div>
+                <div class="panel-body">
+                    <ul id="channelTree" class="ztree" style="margin-top:0; width:200px;"></ul>
+                </div>
+            </div>
+        </div>
         <form role="form" class="form-inline" action="${basePath}/content/list.do}" method="post"  id="formSubmit">
-            <div  class="col-md-10" style="width:100%">
+            <div  class="col-md-10">
                 <div class="panel panel-default">
-                    <div class="panel-heading">列表</div>
+                    <div class="panel-heading">新闻列表</div>
                     <div class="panel-body">
                         <input name="pageNo" id="pageNo" value="${pageNo}" type="hidden">
                         <input name="pageSize" id="pageSize" th:value="${pageSize}" type="hidden">
@@ -20,81 +28,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-3">
-                                <label for="userId" class="control-label col-sm-3 line34">发表用户</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="userId" id="userId" value="${query.userId!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="checkUserId" class="control-label col-sm-3 line34">审核用户</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="checkUserId" id="checkUserId" value="${query.checkUserId!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="channelId" class="control-label col-sm-3 line34">栏目</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="channelId" id="channelId" value="${query.channelId!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="copied" class="control-label col-sm-3 line34">是否转载</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="copied" id="copied" value="${query.copied!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="author" class="control-label col-sm-3 line34">作者</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="author" id="author" value="${query.author!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="editor" class="control-label col-sm-3 line34">编辑</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="editor" id="editor" value="${query.editor!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="description" class="control-label col-sm-3 line34">简介</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="description" id="description" value="${query.description!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="clicks" class="control-label col-sm-3 line34">点击数</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="clicks" id="clicks" value="${query.clicks!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="comments" class="control-label col-sm-3 line34">评论数</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="comments" id="comments" value="${query.comments!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="publishDate" class="control-label col-sm-3 line34">发布日期</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="publishDate" id="publishDate" value="${query.publishDate!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="createDate" class="control-label col-sm-3 line34">创建日期</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="createDate" id="createDate" value="${query.createDate!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="status" class="control-label col-sm-3 line34">状态：0、草稿 1、已发布 2、待审核</label>
+                                <label for="status" class="control-label col-sm-3 line34">状态</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="status" id="status" value="${query.status!}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <label for="isComment" class="control-label col-sm-3 line34">是否可以评论</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="isComment" id="isComment" value="${query.isComment!}" class="form-control">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">搜  索</button>
@@ -120,7 +56,7 @@
                                 <th>评论数</th>
                                 <th>发布日期</th>
                                 <th>创建日期</th>
-                                <th>状态：0、草稿 1、已发布 2、待审核</th>
+                                <th>状态</th>
                                 <th>是否可以评论</th>
                                 <th>操作</th>
                             </thead>
@@ -144,7 +80,7 @@
                                 <td class="last">
                                 <@shiro.hasPermission name="cms.content.edit"><a href="javascript:void(0)" onclick="javascript:doUrl('${basePath}/content/toEdit.do?id=${info.id}')" >编辑</a></@shiro.hasPermission>
                                 <@shiro.hasPermission name="cms.content.delete">  <a onclick="javascript:delData('${basePath}/content/doDelete.do?id=${info.id}')">删除</a></@shiro.hasPermission>
-                                <@shiro.hasPermission name="cms.content.detail">	<a onclick="javascript:doUrl('${basePath}/content/toDetail.do?id=${info.id}')">详情</a></@shiro.hasPermission>
+                                <@shiro.hasPermission name="cms.content.detail">  <a onclick="javascript:doUrl('${basePath}/content/toDetail.do?id=${info.id}')">详情</a></@shiro.hasPermission>
                                 </td>
                             </tr>
                             </#list>
@@ -160,50 +96,88 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="${basePath}/plug-in-ui/treetable/jquery.treeTable.min.js"></script>
-
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.exedit.js"></script>
 <script type="text/javascript">
-    //当前页码
-    var pageNo = ${pageNo};
-    //当前页数
-    var pages = ${pages};
 
-    var visiblePages = pages;
-    if (pages >= 10) {
-        visiblePages = 10;
+    function zTreeOnClick(event, treeId, treeNode){
+        console.log(treeNode.isParent);
+        if (treeNode.isParent) {
+            getChannel(treeNode.id);
+        }
     }
 
-    $.jqPaginator('#pagination1', {
-        totalPages: pages,
-        visiblePages: visiblePages,
-        currentPage: pageNo,
-        prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
-        next: '<li class="next"><a href="javascript:;">下一页</a></li>',
-        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-        first: '<li class="next"><a href="javascript:;">首页</a></li>',
-        last: '<li class="next"><a href="javascript:;">末页</a></li>',
-        onPageChange: function (num, type) {
-            console.log("num : " + num);
-            console.log("type : " + type);
-            if (type != "init") {
-                //$('#p1').text(type + '：' + num);
-                document.getElementById('pageNo').value = num;
-                document.getElementById('formSubmit').submit();
-            }
-        }
-    });
-    $(function(){
-        var option = {
-            theme:'default',
-            expandLevel : 3,
-            beforeExpand : function($treeTable, id) {
-            },
-            onSelect : function($treeTable, id) {
-                window.console && console.log('onSelect:' + id);
-            }
+    function getChannel(id) {
+        $.getJSON("${basePath}/channel/channelList.do",{id:id},function(data){
+            console.log(data);
+            var sum ="";
+            $.each(data.channelList,function (i,info) {
+                if (data.edit) {
+                    var addTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toEdit.do?id=" + info.id + "')\" >编辑</a>";
+                }
+                if (data.detail) {
+                    var detailTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toDetail.do?id=" + info.id + "')\" >详情</a>";
+                }
+                if (data.delete) {
+                    var deleteTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toDekete.do?id=" + info.id + "')\" >删除</a>";
+                }
+                var html = "<tr>"
+                        + "<td>" + info.name + "</td>"
+                        + "<td>" + info.type + "</td>"
+                        + "<td>" + info.sort + "</td>"
+                        + "<td>" + info.isDisplay + "</td>"
+                        + "<td class=\"last\">" + addTd + detailTd + deleteTd + "</td>"
+                        + "</tr>";
+                sum = sum +　html;
+            });
+            $("#channelJson").empty().append(sum);
+        })
+    }
+    var setting = {
 
-        };
-        $('#treeTable1').treeTable(option);
+        view: {
+            //addHoverDom: addHoverDom,
+            //removeHoverDom: removeHoverDom,
+            dblClickExpand: false
+        },
+
+        data: {
+            key: {
+                name: "name"
+            },
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "parentId",
+                rootPId: null
+            }
+        },callback: {
+            onClick: zTreeOnClick
+        }
+    };
+
+
+
+    var zNodes;
+    $(document).ready(function() {
+        $.ajax({
+            async: false,
+            cache: false,
+            type: 'POST',
+            dataType: "json",
+            url: '${basePath}/channel/tree.do',//请求的action路径
+            error: function () {//请求失败处理函数
+                alert('请求失败');
+            },
+            success: function (data) { //请求成功后处理函数。
+                zNodes = data;   //把后台封装好的简单Json格式赋给zNodes
+                //console.log(zNodes);
+            }
+        });
+        zTree.init($("#channelTree"), setting, zNodes);
+        getChannel(null);
     });
 </script>
+
 </html>

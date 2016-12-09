@@ -92,7 +92,7 @@ List<ContentEntity> list = contentService.select(content);
     @RequestMapping(value = "/toEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
     public String toEdit(@RequestParam(required = true, value = "id" ) Integer id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
     EndUtil.sendEndParams(request,model);
-    ContentEntity content = contentService.selectByPrimaryKey(id);
+        ContentEntity content = contentService.selectByPrimaryKey(id);
         model.addAttribute("content",content);
         return END_PAGE + CURRENT_PAGE + EDIT;
     }
@@ -124,10 +124,12 @@ List<ContentEntity> list = contentService.select(content);
     @RequiresPermissions("cms.content.add")
     @RequestMapping(value = "/doAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doAdd(@ModelAttribute("content") ContentEntity content){
+    public AjaxJson doAdd(@ModelAttribute("content") ContentEntity content,HttpServletRequest request){
         AjaxJson j = new AjaxJson();
+        String text = request.getParameter("text");
+
         try {
-            contentService.save(content);
+            contentService.save(content,text);
             j.setMsg("保存成功");
         } catch (Exception e) {
             logger.info(e.getMessage());

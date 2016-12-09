@@ -1,5 +1,6 @@
 package com.xmmxjy.cms.service.impl;
 
+import com.xmmxjy.cms.dao.ContentAttributeDao;
 import com.xmmxjy.common.service.impl.BaseServiceImpl;
 import com.xmmxjy.cms.dao.ContentDao;
 import com.xmmxjy.cms.entity.ContentEntity;
@@ -19,4 +20,11 @@ public class ContentServiceImpl extends BaseServiceImpl<ContentEntity> implement
     @Autowired
     private ContentDao contentDao;
 
+    @Autowired
+    private ContentAttributeDao contentAttributeDao;
+    @Override
+    public void save(ContentEntity content, String text) {
+      // 插入啊
+      long l =  contentDao.saveContent(content);
+    }
 }

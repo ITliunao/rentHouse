@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <#include "/end/include/head.ftl"/>
+<#include "/end/include/ueditor.ftl"/>
 <body style='overflow:scroll;overflow-x:hidden'>
 <div class="container bs-docs-container" style="width:100%;">
     <div class="row">
@@ -82,15 +83,22 @@
                         </div>
                     </div>
                     <div class="form-group mno">
+                        <label for="text" class="col-sm-2 control-label" style="text-align:left;">创建日期</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="createDate" id="createDate" class="form-control"  datatype="*" />
+                        </div>
+                    </div>
+                    <div class="form-group mno">
                         <label for="status" class="col-sm-2 control-label" style="text-align:left;">状态：0、草稿 1、已发布 2、待审核</label>
                         <div class="col-sm-8">
                             <input type="text" name="status" id="status" class="form-control"  datatype="*" />
                         </div>
                     </div>
+
                     <div class="form-group mno">
-                        <label for="isComment" class="col-sm-2 control-label" style="text-align:left;">是否可以评论</label>
+                        <label for="isComment" class="col-sm-2 control-label" style="text-align:left;">内容</label>
                         <div class="col-sm-8">
-                            <input type="text" name="isComment" id="isComment" class="form-control" />
+                            <script id="container" name="content" type="text/plain" style="height:600px;">这里写你的初始化内容</script>
                         </div>
                     </div>
                     <div class="form-group mno">
@@ -108,3 +116,6 @@
 </html>
 <script type="text/javascript" src="${basePath}/plug-in-ui/project/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${basePath}/plug-in-ui/project/js/forminit.p3.js"></script>
+<script type="text/javascript">
+    var editor = UE.getEditor('container');
+</script>

@@ -14,5 +14,6 @@ import java.util.Map;
 */
 public interface ContentDao extends MyMapper<ContentEntity> {
 
+    long saveContent(ContentEntity content);
 }
 
