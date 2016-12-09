@@ -51,7 +51,7 @@
 
     <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 
-    <table tableName="rh_dict_data" >
+    <table tableName="rh_channel_paths" >
     </table>
   </context>
 </generatorConfiguration>

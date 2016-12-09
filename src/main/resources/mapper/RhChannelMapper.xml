@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmmxjy.cms.dao.ChannelDao" >
+  <resultMap id="BaseResultMap" type="com.xmmxjy.cms.entity.ChannelEntity" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="is_display" property="isDisplay" jdbcType="TINYINT" />
+  </resultMap>
+
+  <select id="selectByParentId" resultMap="BaseResultMap">
+    SELECT * from rh_channel
+    <choose>
+      <when test="id == null">
+        where parent_id is null
+      </when>
+      <otherwise>
+        where parent_id = #{id}
+      </otherwise>
+    </choose>
+  </select>
+
+</mapper>

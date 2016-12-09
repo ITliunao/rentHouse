@@ -267,7 +267,126 @@ public class CodeGenerateFactory {
         }
 
     }
+    public static void codeGenerateByVM2(String tableName, String codeName, String keyType) {
+        try {
+            CreateBean e1 = new CreateBean();
+            e1.setMysqlInfo(url, username, passWord);
+            String className = e1.getTablesNameToClassName(tableName);
+            //移除固定前缀
+            className = className.substring(2,className.length());
+            String lowerName = className.substring(0, 1).toLowerCase() + className.substring(1, className.length());
+            String tableNameUpper = tableName.toUpperCase();
+            String tablesAsName = e1.getTablesASName(tableName);
+            if(StringUtils.isEmpty(codeName)) {
+                Map pathSrc = e1.getTableCommentMap();
+                codeName = (String)pathSrc.get(tableNameUpper);
+            }
+            //java代码目录
+            String pathSrc1 = CodeResourceUtil.getConfigInfo("path_src");
+            //包名(和project组合) 如：com.xmmxjy
+            String basePackage = CodeResourceUtil.getConfigInfo("base_package");
+            //包名 如：system
+            String projectName = CodeResourceUtil.getConfigInfo("project_name");
+            basePackage = basePackage + "." + projectName;
+            //代码作者
+            String author = CodeResourceUtil.getConfigInfo("author");
+            //目前没有用
+            String baseDao = CodeResourceUtil.getConfigInfo("baseDao");
+            //页面路径
+            String pagePath = CodeResourceUtil.getConfigInfo("page_path");
+            //实体路径
+            String domainPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "entity" + "\\" + className + "Entity.java";
+            //dao路径
+            String daoPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "dao" + "\\" + className + "Dao.java";
+            //service路径
+            String servicePath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "service" + "\\" + className + "Service.java";
+            //serviceImpl实现路径
+            String serviceImplPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "service" + "\\" + "impl" + "\\" + className + "ServiceImpl.java";
+            //控制器路径
+            String controllerPath = pathSrc1 + basePackage.replace(".", "\\") + "\\" + "controller" + "\\" + className + "Controller.java";
+            //list页面路径
+            String pageIndexPath = pagePath + "\\" + lowerName + "\\" +"list.ftl";
+            //add页面路径
+            String pageAddPath = pagePath + "\\" + lowerName + "\\" +"add.ftl";
+            //修改页面路径
+            String pageEditPath = pagePath + "\\" + lowerName  + "\\" + "edit.ftl";
+            //详情页面路径
+            String pageDetailPath = pagePath + "\\" + lowerName + "\\" + "detail.ftl";
 
+            String sqlMapperFlag = CodeResourceUtil.getConfigInfo("sqlmap_flag");
+            String domainFlag = CodeResourceUtil.getConfigInfo("domain_flag");
+            String daoFlag = CodeResourceUtil.getConfigInfo("dao_flag");
+            String daoImplFlag = CodeResourceUtil.getConfigInfo("dao_impl_flag");
+            String serviceFlag = CodeResourceUtil.getConfigInfo("service_flag");
+            String serviceImplFlag = CodeResourceUtil.getConfigInfo("service_impl_flag");
+            String controllerFlag = CodeResourceUtil.getConfigInfo("controller_flag");
+            String domainQueryFlag = CodeResourceUtil.getConfigInfo("domain_query_flag");
+            String pageFlag = CodeResourceUtil.getConfigInfo("page_flag");
+            String sqlFlag = CodeResourceUtil.getConfigInfo("sql_flag");
+            Map sqlMap = e1.getAutoCreateSql(tableName);
+            List columnDatas = e1.getColumnDatas(tableName);
+            List columnKeyDatas = e1.getColumnKeyDatas(columnDatas);
+            String columnKeyParam = e1.getColumnKeyParam(columnKeyDatas);
+            String columnKeyUseParam = e1.getColumnKeyUseParam(columnKeyDatas);
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 E ");
+            String nowDate = dateformat.format(new Date());
+            System.out.println("时间:" + nowDate);
+            VelocityContext context = new VelocityContext();
+
+            context.put("author", author);
+            context.put("baseDao", baseDao);
+            context.put("className", className);
+            context.put("lowerName", lowerName);
+            context.put("codeName", codeName);
+            context.put("tableName", tableName);
+            context.put("tableNameUpper", tableNameUpper);
+            context.put("tablesAsName", tablesAsName);
+            context.put("projectName", projectName);
+            context.put("package",projectName);
+            context.put("keyType", keyType);
+            context.put("nowDate", nowDate);
+            context.put("feilds", e1.getBeanFeilds(tableName, className));
+            context.put("queryfeilds", e1.getQueryBeanFeilds(tableName, className));
+            context.put("columnDatas", columnDatas);
+            context.put("columnKeyDatas", columnKeyDatas);
+            context.put("columnKeyParam", columnKeyParam);
+            context.put("columnKeyUseParam", columnKeyUseParam);
+            context.put("SQL", sqlMap);
+            if("Y".equals(pageFlag)) {
+                CommonPageParser.WriterPage(context, "list.vm", "", pageIndexPath);
+                CommonPageParser.WriterPage(context, "add.vm", "", pageAddPath);
+                CommonPageParser.WriterPage(context, "detail.vm", "", pageDetailPath);
+                CommonPageParser.WriterPage(context, "edit.vm", "", pageEditPath);
+            }
+            if("Y".equals(domainFlag)) {
+                CommonPageParser.WriterPage(context, "domainClass.vm", "", domainPath);
+            }
+
+            if("Y".equals(daoFlag)) {
+                CommonPageParser.WriterPage(context, "daoClass.vm", "", daoPath);
+            }
+
+            if("Y".equals(serviceFlag)) {
+                CommonPageParser.WriterPage(context, "serviceClass.vm", "", servicePath);
+            }
+
+            if("Y".equals(serviceImplFlag)) {
+                CommonPageParser.WriterPage(context, "serviceImplClass.vm", "", serviceImplPath);
+            }
+            if("Y".equals(controllerFlag)) {
+                CommonPageParser.WriterPage(context, "controllerClass.vm", "", controllerPath);
+            }
+
+
+
+
+            log.info("----------------------------代码生成完毕---------------------------");
+            System.out.println("----------------------------代码生成完毕---------------------------");
+        } catch (Exception var59) {
+            var59.printStackTrace();
+        }
+
+    }
     public static String getProjectPath() {
         String path = System.getProperty("user.dir").replace("\\", "/") + "/";
         return path;

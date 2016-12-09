@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html><#include "/end/include/head.ftl"/>
+<html>
+<#include "/end/include/head.ftl"/>
 <body style='overflow:scroll;overflow-x:hidden'>
 <div class="container bs-docs-container" style="width:100%;">
 	<div class="row">

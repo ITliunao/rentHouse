@@ -21,7 +21,7 @@ public class CommonPageParser {
 
     static {
         try {
-            String e = CodeGenerateFactory.getProjectPath() + CodeResourceUtil.getConfigInfo("templatepath_vm");
+            String e = CodeGenerateFactory.getClassPath()+ CodeResourceUtil.getConfigInfo("templatepath_vm");
             Properties properties = new Properties();
             properties.setProperty("resource.loader", "file");
             properties.setProperty("file.resource.loader.description", "Velocity File Resource Loader");
@@ -46,7 +46,7 @@ public class CommonPageParser {
     public static void WriterPage(VelocityContext context, String templateName, String fileDirPath, String targetFile) {
         try {
             String e = CodeResourceUtil.getConfigInfo("workspace_path");
-            File file = new File(e + File.separator + fileDirPath + File.separator + targetFile);
+            File file = new File(e  + File.separator + targetFile);
             if(!file.exists()) {
                 (new File(file.getParent())).mkdirs();
             } else if(isReplace) {

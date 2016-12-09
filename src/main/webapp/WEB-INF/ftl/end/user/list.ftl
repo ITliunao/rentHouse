@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html><#include "/end/include/head.ftl"/>
+<html>
+<#include "/end/include/head.ftl"/>
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
@@ -29,7 +30,9 @@
 							</div>
 
 							<div id="legend">
-								<legend  class="le"><button type="button" class="btn btn-primary" onclick="javascript:doUrl(${basePath}/user/toAdd.do);" >新增</button></legend>
+								<legend  class="le">
+									<@shiro.hasPermission name="system.user.add"><button type="button" class="btn btn-primary" onclick="javascript:doUrl(${basePath}/user/toAdd.do);" >新增</button></@shiro.hasPermission>
+								</legend>
 							</div>
 							<table class="table table-striped">
 								<thead>

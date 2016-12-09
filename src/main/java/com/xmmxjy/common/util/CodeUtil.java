@@ -1,5 +1,6 @@
 package com.xmmxjy.common.util;
 
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import com.xmmxjy.generator.def.FtlDef;
 import com.xmmxjy.generator.factory.CodeGenerateFactory;
 import freemarker.template.Configuration;
@@ -50,8 +51,8 @@ public class CodeUtil {
         root.put("columnDatas","");
         createFileByFTL(cfg, root, "domainClass.ftl", "", domainPath);*/
 
-        CodeGenerateFactory.codeGenerateByFTL("rh_dict_data", "数据字典数据", FtlDef.KEY_TYPE_02);
-
+        //CodeGenerateFactory.codeGenerateByFTL("rh_dict_data", "数据字典数据", FtlDef.KEY_TYPE_02);
+        CodeGenerateFactory.codeGenerateByVM2("rh_channel","栏目",FtlDef.KEY_TYPE_02);
 
     }
 

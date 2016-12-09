@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html><head th:replace="end/include/head">
+<html>
+<#include "/end/include/head.ftl"/>
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-heading">分配权限</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" id="dailogForm" th:action="@{/role/doAssign.do}" method="POST">
+					<form class="form-horizontal" role="form" id="dailogForm" action="${basePath}/role/doAssign.do" method="POST">
 						<input type="hidden" id="btn_sub" class="btn_sub" />
 						<input type="hidden" id="ids" name="ids"/>
-						<input type="hidden" th:value="${role.id}" name="id" id="id" />
+						<input type="hidden" value="${role.id}" name="id" id="id" />
                         <div id="menuContent" class="menuContent">
                             <ul id="treeDemo" class="ztree" style="margin-top:0; width:200px;"></ul>
                         </div>
                         <div class="form-group mno">
                             <div class="col-sm-offset-1 col-sm-6">
-								<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" th:onclick="'doUrl(\''+ @{/role/list.do} +'\');'">返回</button>
+                                <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('${basePath}/role/list.do');">返回</button>
                                 <button type="button" class="btn btn-primary" id="formSubmit">提交</button>
                             </div>
                         </div>
@@ -26,11 +27,11 @@
 	</div>
 </body>
 </html>
-<script type="text/javascript" th:src="@{/plug-in-ui/project/js/Validform_v5.3.2.js}"></script>
-<script type="text/javascript" th:src="@{/plug-in-ui/project/js/forminit.p3.js}"></script>
-<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.core.js}"></script>
-<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.excheck.js}"></script>
-<script type="text/javascript" th:src="@{/plug-in-ui/zTree/jquery.ztree.exedit.js}"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/project/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/project/js/forminit.p3.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.exedit.js"></script>
 <script type="text/javascript">
     var IDMark_A = "_a";
 
@@ -121,7 +122,7 @@
             cache:false,
             type: 'POST',
             dataType : "json",
-			url: '[[${basePath}]]/function/tree.do',//请求的action路径
+			url: '${basePath}/function/tree.do',//请求的action路径
             error: function () {//请求失败处理函数
                 alert('请求失败');
             },
@@ -132,7 +133,7 @@
         });
         zTree.init(jQuery("#treeDemo"), setting, zNodes);
 		var array = new Array()
-		var functionIdList = "[[${functionIdList}]]"
+		var functionIdList = "${functionIdList!}"
         console.log("functionIdList " + functionIdList);
 		array = functionIdList.split(",");
 

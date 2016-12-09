@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html >
+#set ($include='include')<#$!{include} "/end/include/head.ftl"/>
+<link href="${basePath}/plug-in-ui/treetable/default/treeTable.css" rel="stylesheet" type="text/css" />
+<body style='overflow:scroll;overflow-x:hidden'>
+<div class="container bs-docs-container" style="width:100%;">
+    <div class="row">
+        <form role="form" class="form-inline" action="${basePath}/$!{lowerName}/list.do}" method="post"  id="formSubmit">
+            <div  class="col-md-10" style="width:100%">
+                <div class="panel panel-default">
+                    <div class="panel-heading">列表</div>
+                    <div class="panel-body">
+                        <input name="pageNo" id="pageNo" value="${pageNo}" type="hidden">
+                        <input name="pageSize" id="pageSize" th:value="${pageSize}" type="hidden">
+                        <div class="search">
+                            #set ($query='query.')#foreach($!{item} in $!{columnDatas})#if($!item.domainPropertyName != 'id')<div class="form-group col-sm-3">
+                                <label for="$!{item.domainPropertyName}" class="control-label col-sm-3 line34">$!{item.columnComment}</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="$!{item.domainPropertyName}" id="$!{item.domainPropertyName}" value="${$!{query}$!{item.domainPropertyName}!}" class="form-control">
+                                </div>
+                            </div>
+                            #end#end<button type="submit" class="btn btn-primary">搜  索</button>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div id="legend">
+                            <legend  class="le">
+                            <@shiro.hasPermission name="$!{package}.$!{lowerName}.add"><button type="button" class="btn btn-primary" onclick="javascript:doUrl('${basePath}/$!{lowerName}/toAdd.do');" >新增</button></@shiro.hasPermission>
+                            </legend>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                #foreach($!{item} in $!{columnDatas})#if($!item.domainPropertyName != 'id')<th>$!{item.columnComment}</th>
+                                #end#end<th>操作</th>
+                            </thead>
+                            <tbody>
+                            <#list list as info>
+                            <tr>
+                                #set ($var='info.')#foreach($!{item} in $!{columnDatas})#if($!item.domainPropertyName != 'id')<td>${${var}$!{item.domainPropertyName}!}</td>
+                                #end#end<td class="last">
+                                <@shiro.hasPermission name="$!{package}.$!{lowerName}.edit"><a href="javascript:void(0)" onclick="javascript:doUrl('${basePath}/$!{lowerName}/toEdit.do?id=${info.id}')" >编辑</a></@shiro.hasPermission>
+                                <@shiro.hasPermission name="$!{package}.$!{lowerName}.delete">  <a onclick="javascript:delData('${basePath}/$!{lowerName}/doDelete.do?id=${info.id}')">删除</a></@shiro.hasPermission>
+                                <@shiro.hasPermission name="$!{package}.$!{lowerName}.detail">	<a onclick="javascript:doUrl('${basePath}/$!{lowerName}/toDetail.do?id=${info.id}')">详情</a></@shiro.hasPermission>
+                                </td>
+                            </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <ul class="pagination" id="pagination1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${basePath}/plug-in-ui/treetable/jquery.treeTable.min.js"></script>
+
+<script type="text/javascript">
+    //当前页码
+    var pageNo = ${pageNo};
+    //当前页数
+    var pages = ${pages};
+
+    var visiblePages = pages;
+    if (pages >= 10) {
+        visiblePages = 10;
+    }
+
+    $.jqPaginator('#pagination1', {
+        totalPages: pages,
+        visiblePages: visiblePages,
+        currentPage: pageNo,
+        prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+        next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+        page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+        first: '<li class="next"><a href="javascript:;">首页</a></li>',
+        last: '<li class="next"><a href="javascript:;">末页</a></li>',
+        onPageChange: function (num, type) {
+            console.log("num : " + num);
+            console.log("type : " + type);
+            if (type != "init") {
+                //$('#p1').text(type + '：' + num);
+                document.getElementById('pageNo').value = num;
+                document.getElementById('formSubmit').submit();
+            }
+        }
+    });
+    $(function(){
+        var option = {
+            theme:'default',
+            expandLevel : 3,
+            beforeExpand : function($treeTable, id) {
+            },
+            onSelect : function($treeTable, id) {
+                window.console && console.log('onSelect:' + id);
+            }
+
+        };
+        $('#treeTable1').treeTable(option);
+    });
+</script>
+</html>
