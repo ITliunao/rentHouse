@@ -3,6 +3,8 @@ package com.xmmxjy.cms.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xmmxjy.cms.entity.ContentAttributeEntity;
+import com.xmmxjy.cms.service.ContentAttributeService;
 import com.xmmxjy.common.controller.BaseEndController;
 import com.xmmxjy.common.util.AjaxJson;
 import com.xmmxjy.common.util.BeanUtil;
@@ -39,6 +41,9 @@ private static final String CURRENT_PAGE = "content/";
 @Autowired
 private ContentService contentService;
 
+@Autowired
+private ContentAttributeService contentAttributeService;
+
 
 /**
 * 列表页面
@@ -56,7 +61,7 @@ public String list(@ModelAttribute ContentEntity query, HttpServletRequest reque
     * 页面会转成空字符串，这里转成null，待后续想其他办法，这里加上转换，性能肯定有影响了
     */
     BeanUtil.copyBean2Bean(content,query);
-List<ContentEntity> list = contentService.select(content);
+    List<ContentEntity> list = contentService.select(content);
     logger.info("list : {}",list);
     model.addAttribute("query",query);
     PageInfo page = new PageInfo(list);
@@ -90,10 +95,12 @@ List<ContentEntity> list = contentService.select(content);
     */
     @RequiresPermissions("cms.content.edit")
     @RequestMapping(value = "/toEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
-    public String toEdit(@RequestParam(required = true, value = "id" ) Integer id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
-    EndUtil.sendEndParams(request,model);
+    public String toEdit(@RequestParam(required = true, value = "id" ) Long id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+        EndUtil.sendEndParams(request,model);
         ContentEntity content = contentService.selectByPrimaryKey(id);
+        ContentAttributeEntity attribute = contentAttributeService.selectByPrimaryKey(id);
         model.addAttribute("content",content);
+        model.addAttribute("attribute",attribute);
         return END_PAGE + CURRENT_PAGE + EDIT;
     }
 
@@ -106,10 +113,12 @@ List<ContentEntity> list = contentService.select(content);
     */
     @RequiresPermissions("cms.content.detail")
     @RequestMapping(value = "/toDetail.do",method ={RequestMethod.GET, RequestMethod.POST})
-    public String toDetail(@RequestParam(required = true, value = "id" ) Integer id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+    public String toDetail(@RequestParam(required = true, value = "id" ) Long id,HttpServletRequest request,HttpServletResponse response,ModelMap model){
         EndUtil.sendEndParams(request,model);
         ContentEntity content = contentService.selectByPrimaryKey(id);
+        ContentAttributeEntity attribute = contentAttributeService.selectByPrimaryKey(id);
         model.addAttribute("content",content);
+        model.addAttribute("attribute",attribute);
         return END_PAGE + CURRENT_PAGE + DETAIL;
     }
 
@@ -124,12 +133,11 @@ List<ContentEntity> list = contentService.select(content);
     @RequiresPermissions("cms.content.add")
     @RequestMapping(value = "/doAdd.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doAdd(@ModelAttribute("content") ContentEntity content,HttpServletRequest request){
+    public AjaxJson doAdd(@ModelAttribute("content") ContentEntity content, @ModelAttribute("contentAttribute") ContentAttributeEntity contentAttribute, HttpServletRequest request){
         AjaxJson j = new AjaxJson();
-        String text = request.getParameter("text");
 
         try {
-            contentService.save(content,text);
+            contentService.save(content,contentAttribute);
             j.setMsg("保存成功");
         } catch (Exception e) {
             logger.info(e.getMessage());
@@ -147,10 +155,10 @@ List<ContentEntity> list = contentService.select(content);
     @RequiresPermissions("cms.content.edit")
     @RequestMapping(value = "/doEdit.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doEdit(@ModelAttribute("content") ContentEntity content){
+    public AjaxJson doEdit(@ModelAttribute("content") ContentEntity content,@ModelAttribute("contentAttribute") ContentAttributeEntity contentAttribute){
     AjaxJson j = new AjaxJson();
         try {
-        int i = contentService.updateByPrimaryKey(content);
+        int i = contentService.update(content,contentAttribute);
         logger.info("i : ---- {}",i);
             if (i > 0) {
                 j.setMsg("更新成功");
@@ -168,7 +176,7 @@ List<ContentEntity> list = contentService.select(content);
     @RequiresPermissions("cms.content.delete")
     @RequestMapping(value = "/doDelete.do",method ={RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public AjaxJson doDelete(@RequestParam(required = true, value = "id")Integer id){
+    public AjaxJson doDelete(@RequestParam(required = true, value = "id")Long id){
     AjaxJson j = new AjaxJson();
     try {
         int i= contentService.delete(id);

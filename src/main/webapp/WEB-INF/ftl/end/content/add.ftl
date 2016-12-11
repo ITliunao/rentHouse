@@ -58,42 +58,6 @@
                             <input type="text" name="description" id="description" class="form-control" />
                         </div>
                     </div>
-                    <div class="form-group mno">
-                        <label for="clicks" class="col-sm-2 control-label" style="text-align:left;">点击数</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="clicks" id="clicks" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
-                    <div class="form-group mno">
-                        <label for="comments" class="col-sm-2 control-label" style="text-align:left;">评论数</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="comments" id="comments" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
-                    <div class="form-group mno">
-                        <label for="publishDate" class="col-sm-2 control-label" style="text-align:left;">发布日期</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="publishDate" id="publishDate" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
-                    <div class="form-group mno">
-                        <label for="createDate" class="col-sm-2 control-label" style="text-align:left;">创建日期</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="createDate" id="createDate" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
-                    <div class="form-group mno">
-                        <label for="text" class="col-sm-2 control-label" style="text-align:left;">创建日期</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="createDate" id="createDate" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
-                    <div class="form-group mno">
-                        <label for="status" class="col-sm-2 control-label" style="text-align:left;">状态：0、草稿 1、已发布 2、待审核</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="status" id="status" class="form-control"  datatype="*" />
-                        </div>
-                    </div>
 
                     <div class="form-group mno">
                         <label for="isComment" class="col-sm-2 control-label" style="text-align:left;">内容</label>
@@ -107,6 +71,8 @@
                             <button type="button" class="btn btn-primary" id="formSubmit">提交</button>
                         </div>
                     </div>
+                    <input type="hidden" name="text" id="text" class="form-control" />
+
                 </form>
             </div>
         </div>
@@ -118,4 +84,10 @@
 <script type="text/javascript" src="${basePath}/plug-in-ui/project/js/forminit.p3.js"></script>
 <script type="text/javascript">
     var editor = UE.getEditor('container');
+    console.log(editor);
+    editor.addListener( 'contentChange', function() {
+        var str = editor.getContent();
+        console.log(str);
+        $("#text").val(str);
+    } );
 </script>

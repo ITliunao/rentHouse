@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <#include "/end/include/head.ftl"/>
+<#include "/end/include/ueditor.ftl"/>
 <body style='overflow:scroll;overflow-x:hidden'>
 <div class="container bs-docs-container" style="width:100%;">
     <div class="row">
@@ -95,6 +96,12 @@
                                 </div>
                             </div>
                     <div class="form-group mno">
+                        <label for="isComment" class="col-sm-2 control-label" style="text-align:left;">内容</label>
+                        <div class="col-sm-8">
+                            <script id="container" name="content" type="text/plain" style="height:600px;">这里写你的初始化内容</script>
+                        </div>
+                    </div>
+                    <div class="form-group mno">
                         <div class="col-sm-offset-1 col-sm-6">
                             <button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('${basePath}/content/list.do');">返回</button>
                             <button type="button" class="btn btn-primary" id="formSubmit">提交</button>
@@ -109,3 +116,7 @@
 </html>
 <script type="text/javascript" src="${basePath}/plug-in-ui/project/js/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${basePath}/plug-in-ui/project/js/forminit.p3.js"></script>
+<script type="text/javascript">
+    var editor = UE.getEditor('container');
+    editor.setContent('${attribute.text!}',true)
+</script>
