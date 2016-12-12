@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmmxjy.cms.dao.ContentAttributeDao" >
-  <resultMap id="BaseResultMap" type="com.xmmxjy.cms.entity.ContentAttributeEntity" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmmxjy.cms.dao.ContentAttributeDao">
+  <resultMap id="BaseResultMap" type="com.xmmxjy.cms.entity.ContentAttributeEntity">
     <!--
       WARNING - @mbggenerated
     -->
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="source" property="source" jdbcType="VARCHAR" />
-    <result column="source_url" property="sourceUrl" jdbcType="VARCHAR" />
-    <result column="word_count" property="wordCount" jdbcType="INTEGER" />
-    <result column="data" property="data" jdbcType="LONGVARCHAR" />
-    <result column="text" property="text" jdbcType="LONGVARCHAR" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="source_url" jdbcType="VARCHAR" property="sourceUrl" />
+    <result column="word_count" jdbcType="INTEGER" property="wordCount" />
+    <result column="data" jdbcType="LONGVARCHAR" property="data" />
+    <result column="text" jdbcType="LONGVARCHAR" property="text" />
   </resultMap>
 </mapper>

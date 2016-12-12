@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html >
 <#include "/end/include/head.ftl"/>
-<link href="${basePath}/plug-in-ui/treetable/default/treeTable.css" rel="stylesheet" type="text/css" />
 <body style='overflow:scroll;overflow-x:hidden'>
 <div class="container bs-docs-container" style="width:100%;">
     <div class="row">
@@ -48,7 +47,7 @@
                                 <th>发表用户</th>
                                 <th>审核用户</th>
                                 <th>栏目</th>
-                                <th>是否转载</th>
+<#--                                <th>是否转载</th>
                                 <th>作者</th>
                                 <th>编辑</th>
                                 <th>简介</th>
@@ -57,11 +56,11 @@
                                 <th>发布日期</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
-                                <th>是否可以评论</th>
+                                <th>是否可以评论</th>-->
                                 <th>操作</th>
                             </thead>
-                            <tbody>
-                            <#list list as info>
+                            <tbody id="channelJson">
+                            <#--<#list list as info>
                             <tr>
                                 <td>${info.title!}</td>
                                 <td>${info.userId!}</td>
@@ -83,33 +82,31 @@
                                 <@shiro.hasPermission name="cms.content.detail">  <a onclick="javascript:doUrl('${basePath}/content/toDetail.do?id=${info.id}')">详情</a></@shiro.hasPermission>
                                 </td>
                             </tr>
-                            </#list>
+                            </#list>-->
                             </tbody>
                         </table>
-                        <div class="text-right">
-                            <ul class="pagination" id="pagination1"></ul>
-                        </div>
+                        <div id="contentPage" class="text-right"></div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
-</body>
 <script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="${basePath}/plug-in-ui/zTree/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${basePath}/plug-in-ui/laypage/laypage.js" ></script>
 <script type="text/javascript">
 
     function zTreeOnClick(event, treeId, treeNode){
         console.log(treeNode.isParent);
         if (treeNode.isParent) {
-            getChannel(treeNode.id);
+            getContent();
         }
     }
 
     function getChannel(id) {
-        $.getJSON("${basePath}/channel/channelList.do",{id:id},function(data){
+        $.getJSON("${basePath}/channel/page.do",{id:id},function(data){
             console.log(data);
             var sum ="";
             $.each(data.channelList,function (i,info) {
@@ -123,17 +120,76 @@
                     var deleteTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toDekete.do?id=" + info.id + "')\" >删除</a>";
                 }
                 var html = "<tr>"
-                        + "<td>" + info.name + "</td>"
-                        + "<td>" + info.type + "</td>"
-                        + "<td>" + info.sort + "</td>"
-                        + "<td>" + info.isDisplay + "</td>"
+                        + "<td>" + info.title + "</td>"
+                        + "<td>" + info.userId + "</td>"
+                        + "<td>" + info.checkUserId + "</td>"
+                        + "<td>" + info.channelId + "</td>"
+                        + "<td class=\"last\">" + addTd + detailTd + deleteTd + "</td>"
+                        + "</tr>";
+                sum = sum +　html;
+            });
+            console.log(sum);
+            $("#channelJson").empty().append(sum);
+        })
+    }
+
+    function getContent() {
+        var tree = zTree.getZTreeObj("channelTree");
+        var nodes = tree.getSelectedNodes();
+        var id = null;
+        if (nodes.length > 0) {
+            id = nodes[0].id;
+        }
+        var pageNo = $("#pageNo").val();
+        var pageSize = $("#pageSize").val();
+        pageSize  = 2;
+        $.getJSON("${basePath}/content/page.do",{
+            channelId:id,
+            title : $("#title").val(),
+            status : $("#status").val(),
+            pageNo : pageNo,
+            pageSize :pageSize
+        },function(data){
+            console.log(data);
+            var sum ="";
+            $("#total").val("总数：" + data.total);
+            $.each(data.list,function (i,info) {
+                if (data.edit) {
+                    var addTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toEdit.do?id=" + info.id + "')\" >编辑</a>";
+                }
+                if (data.detail) {
+                    var detailTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toDetail.do?id=" + info.id + "')\" >详情</a>";
+                }
+                if (data.delete) {
+                    var deleteTd = "<a href=\"javascript:void(0)\" onclick=\"javascript:doUrl('${basePath}/channel/toDekete.do?id=" + info.id + "')\" >删除</a>";
+                }
+                var html = "<tr>"
+                        + "<td>" + info.title + "</td>"
+                        + "<td>" + info.userId + "</td>"
+                        + "<td>" + info.checkUserId + "</td>"
+                        + "<td>" + info.channelId + "</td>"
                         + "<td class=\"last\">" + addTd + detailTd + deleteTd + "</td>"
                         + "</tr>";
                 sum = sum +　html;
             });
             $("#channelJson").empty().append(sum);
-        })
+            laypage({
+                cont: $("#contentPage"), //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
+                pages: data.pages, //通过后台拿到的总页数
+                curr: data.pageNo, //当前页
+                skip: true, //是否开启跳页
+                skin: 'molv', //皮肤
+                jump: function(obj, first){ //触发分页后的回调
+                    if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                        $("#pageNo").val(obj.curr);
+                        getContent();
+                    }
+                }
+            });
+            $(".laypage_total").prepend("<label>总条数：" + data.total + "</label> ");
+        });
     }
+
     var setting = {
 
         view: {
@@ -176,8 +232,10 @@
             }
         });
         zTree.init($("#channelTree"), setting, zNodes);
-        getChannel(null);
+        getContent();
     });
+
 </script>
+</body>
 
 </html>

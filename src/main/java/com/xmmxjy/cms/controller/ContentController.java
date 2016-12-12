@@ -12,6 +12,8 @@ import com.xmmxjy.common.util.EndUtil;
 import com.xmmxjy.common.util.Tools;
 import com.xmmxjy.cms.entity.ContentEntity;
 import com.xmmxjy.cms.service.ContentService;
+import com.xmmxjy.system.Constants;
+import com.xmmxjy.system.shiro.ShiroSessionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +24,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -193,5 +198,44 @@ public String list(@ModelAttribute ContentEntity query, HttpServletRequest reque
         return j;
     }
 
-
+    @RequiresPermissions("cms.content.list")
+    @RequestMapping(value = "/page.do",method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public Map<String,Object> listByChannel(@ModelAttribute ContentEntity query, HttpServletRequest request, HttpServletResponse response,
+                                            @RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
+                                            @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) {
+        Map<String,Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageNo, pageSize);
+        ContentEntity content = new ContentEntity();
+        try {
+            /**
+             * 页面会转成空字符串，这里转成null，待后续想其他办法，这里加上转换，性能肯定有影响了
+             */
+            BeanUtil.copyBean2Bean(content,query);
+            List<ContentEntity> list = contentService.select(content);
+            PageInfo page = new PageInfo(list);
+            map.put("total",page.getTotal());
+            map.put("list",page.getList());
+            map.put("pageNo",page.getPageNum());
+            map.put("pageSize",page.getPageSize());
+            map.put("pages",page.getPages());
+            Set<String> permissions = (Set<String>) ShiroSessionUtils.getAttribute(Constants.SHIRO_PERMISSIONS);
+            if (permissions.contains("cms.content.add")) {
+                map.put("add",true);
+            }
+            if (permissions.contains("cms.content.edit")) {
+                map.put("edit",true);
+            }
+            if (permissions.contains("cms.content.detail")) {
+                map.put("detail",true);
+            }
+            if (permissions.contains("cms.content.delete")) {
+                map.put("delete",true);
+            }
+            return map;
+        } catch (Exception e) {
+            logger.error(e.getMessage(),e);
+        }
+        return null;
+    }
 }
